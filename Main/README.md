@@ -1,18 +1,18 @@
-## Getting Started
+## Description
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# The main project files for school_Admin_Management
 
-## Folder Structure
+The main branch is supposed to have changelogs and some explanations, here it will be completely technical.
 
-The workspace contains two folders by default, where:
+# Todo List
+- [x] Try to use JavaFX control and layouts
+- [x] Receive input from fields and add event listener to "enter" key.
+- [ ] Connect to JDBC driver for postgresql.
+    - [ ] Setup postgresql tables.
+    - [ ] Read tables.
+    - [ ] Insert tables.
+    - [ ] Delete tables.
+    - [ ] Update tables.
+- [ ] Create second stage to display data.
+- [ ] Create another stage to edit data.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
