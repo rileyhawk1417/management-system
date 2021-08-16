@@ -14,54 +14,81 @@ public class Postgres {
 
 public static void getUsers() {
     String QUERY = "SELECT * FROM users";
-    String res = "";
+
 
     try(Connection conn = connector();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(QUERY) 
+        ResultSet res = stmt.executeQuery(QUERY) 
     ) {
-       rs.next();
-        System.out.println(rs.getString("user_name") + "\t" + rs.getString("password"));
+       res.next();
+        System.out.println(res.getString("user_name") + "\t" + res.getString("password"));
     } catch (Exception e) {
         //TODO: handle exception
         System.out.println(e);
     } 
 }
 
-public static String authenticate(String a, String b){
+public boolean validate(String user, String pass) throws SQLException{
 
-    String QUERY = "SELECT user_name FROM users WHERE user_name = ? ";
+    String QUERY = "SELECT * FROM users WHERE user_name = ? AND password = ? ";
 
     try(Connection conn = connector();
-        //Statement stmt = conn.createStatement();
-        
-        ) {
-            PreparedStatement pstmt = conn.prepareStatement(QUERY);
-            pstmt.setString(1, a);
+    
+    PreparedStatement pstmt = conn.prepareStatement(QUERY);
+    ) {
+            Statement stmt = conn.createStatement();
+            pstmt.setString(1, user);
+           // pstmt.setString(2, user);
+            pstmt.setString(2, pass);
+            System.out.println(pstmt);
             //rs.next();
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet res = pstmt.executeQuery();
+            System.out.println(res.next());
             //rs.next();
             /*
             *TODO: Fix values being passed into authenticator(change variable name)
             *TODO: Clear the clunky code. 
             */
-        if(rs.next()){
-            boolean registered=false;
-            registered=a.equals(rs.getString(1));
-            if (registered){
-            System.out.println("User is registered");
-            }
-        } else {
-            System.out.println("User Not registered");
+        //         res.next();
+
+        if(res.next()){
+            return true;
         }
+        //         boolean user=true;
+        //         boolean pass=false;
+        //         user=user.equals(res.getString("user_name"));
+        //         pass=pass.equals(res.getString("password"));
+        //     if (user && pass){
+        //     System.out.println("User is registered" + user);
+
+        // } else {
+        //     System.out.println("User Not registered");
+        // }
        
-        System.out.println(rs);
+        // System.out.println(res.next() + user);
         
-    } catch (Exception e) {
-      System.out.println(e);
+    } catch (SQLException e) {
+      printSQLException(e);
         //TODO: handle exception
     }
-    return "Connected";
+    return false;
+}
+
+public static void printSQLException(SQLException ex){
+    for (Throwable e: ex){
+        if(e instanceof SQLException){
+            e.printStackTrace(System.err);
+            System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+            System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+            Throwable t = ex.getCause();
+            while(t != null){
+                System.out.println("Cause: " + t);
+                t = t.getCause();
+            }
+
+        }
+    }
 }
 
 // public String loadTable(){
@@ -69,12 +96,34 @@ public static String authenticate(String a, String b){
     
     //     try(Connection conn=connect())
     // }
+
+    public static Connection checkConnection(){
+    Connection conn=null;
+    
+    try {
+        //Class.forName("org.postgresql.Driver");
+        conn=DriverManager.getConnection(db, user, password);
+        
+        if(conn !=null){
+            System.out.println("DB Connection ok!");
+        } else{
+            System.out.println("Connection Failed");
+        }
+        
+    } catch (Exception e) {
+        //TODO: handle exception
+        System.out.println(e.getMessage());
+    }
+   return conn; 
+}
+
+
     public static void main(String[] args){
         String a=""; 
         String b="";
         
         Postgres sql=new Postgres();
-        sql.getUsers();
+        sql.checkConnection();
         //sql.authenticate(a, b);
     }  
 }
