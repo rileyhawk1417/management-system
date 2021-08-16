@@ -1,8 +1,6 @@
 package com.schoolAdmin.app;
 
 import java.sql.*;
-
-
 public class Postgres {
     private final static String db = "jdbc:postgresql://localhost:5432/java_admin";
     private final static String user = "riley";
@@ -36,37 +34,26 @@ public boolean validate(String user, String pass) throws SQLException{
     
     PreparedStatement pstmt = conn.prepareStatement(QUERY);
     ) {
-            Statement stmt = conn.createStatement();
+
             pstmt.setString(1, user);
-           // pstmt.setString(2, user);
+
             pstmt.setString(2, pass);
             System.out.println(pstmt);
-            //rs.next();
+
             ResultSet res = pstmt.executeQuery();
-            System.out.println(res.next());
-            //rs.next();
+
+            System.out.println(user + pass);
+
             /*
             *TODO: Fix values being passed into authenticator(change variable name)
             *TODO: Clear the clunky code. 
             */
-        //         res.next();
+
 
         if(res.next()){
             return true;
         }
-        //         boolean user=true;
-        //         boolean pass=false;
-        //         user=user.equals(res.getString("user_name"));
-        //         pass=pass.equals(res.getString("password"));
-        //     if (user && pass){
-        //     System.out.println("User is registered" + user);
-
-        // } else {
-        //     System.out.println("User Not registered");
-        // }
-       
-        // System.out.println(res.next() + user);
-        
+    
     } catch (SQLException e) {
       printSQLException(e);
         //TODO: handle exception
@@ -91,17 +78,11 @@ public static void printSQLException(SQLException ex){
     }
 }
 
-// public String loadTable(){
-    //     String QUERY = "SELECT * FROM users";
-    
-    //     try(Connection conn=connect())
-    // }
-
-    public static Connection checkConnection(){
+public static Connection checkConnection(){
     Connection conn=null;
     
     try {
-        //Class.forName("org.postgresql.Driver");
+
         conn=DriverManager.getConnection(db, user, password);
         
         if(conn !=null){
@@ -119,37 +100,9 @@ public static void printSQLException(SQLException ex){
 
 
     public static void main(String[] args){
-        String a=""; 
-        String b="";
-        
+
         Postgres sql=new Postgres();
         sql.checkConnection();
-        //sql.authenticate(a, b);
+
     }  
 }
-
-/*
-    public static Connection connector() throws SQLException{
-    Connection conn=null;
-    
-    try {
-        //Class.forName("org.postgresql.Driver");
-        conn=DriverManager.getConnection(db, user, password);
-        
-        if(conn !=null){
-            System.out.println("DB Connection ok!");
-        } else{
-            System.out.println("Connection Failed");
-        }
-        
-    } catch (SQLException e) {
-        //TODO: handle exception
-        System.out.println(e.getMessage());
-    }
-   return conn; 
-}
-
-*/
-
-
-// class loadTable()
