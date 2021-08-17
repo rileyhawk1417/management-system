@@ -14,6 +14,8 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 
+import com.schoolAdmin.scenes.Records_Display;
+
 import org.w3c.dom.events.MouseEvent;
 
 public class App extends Application {
@@ -56,6 +58,8 @@ public class App extends Application {
         
         //For users who like to use their mouse
 
+        Records_Display layout1 = new Records_Display();
+        Scene scene2 = new Scene(layout1, 840, 550);
         final EventHandler<KeyEvent> subKey = new EventHandler<KeyEvent>(){
             public void handle(KeyEvent e){
                 final String user = userNameField.getText();
@@ -66,6 +70,8 @@ public class App extends Application {
                         boolean val = psql.validate(user, pass);
                         if(val){
                             System.out.println("User Found");
+                            stage.setTitle("Screen 2");
+                            stage.setScene(scene2);
                             // e.consume();             
                    } else{
                        System.out.println("Didnt find user");
