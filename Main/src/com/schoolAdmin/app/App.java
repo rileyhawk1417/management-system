@@ -13,43 +13,40 @@ import javafx.scene.text.*;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.sql.SQLException;
+import javafx.fxml.*;
+import java.net.URL;
 
+import com.schoolAdmin.controllers.DependancyInjector;
+import com.schoolAdmin.psql.Postgres;
 import com.schoolAdmin.scenes.Records_Display;
-
-import org.w3c.dom.events.MouseEvent;
-
 public class App extends Application {
-
+    
     Postgres psql = new Postgres();
-
+    
+    
     @Override
-    public void start(Stage stage) {
-        String greetMsg = "Welcome to School Administration System";
-
-        TilePane TPane = new TilePane();
+    public void start(Stage stage) throws Exception {
         
-        TextField userNameField = new TextField();
-        PasswordField passwordField = new PasswordField();
-       
-        TextFlow bannerTxt = new TextFlow();
-        Text bannerMsgText = new Text(greetMsg);
+/*
+TODO: Fix FML loader not sure why it wont load FXML file
+* But controller is already invoked in the controller file
+*/
 
-        bannerTxt.getChildren().addAll(bannerMsgText);        
-        bannerTxt.setTextAlignment(TextAlignment.CENTER);
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/login_screen.fxml"));
+        Scene loginScene = new Scene(root);
+        
+        /* * This is for Dependancy Injection probably will use it maybe....* /
+/*
+         Parent root = DependancyInjector.load("../fxml/login_screen.fxml");
+         private void setupDepencancyInjector(){
+             Callback<Class<?>, Object> controllerFactory = param -> {
+                 LoginFXML eventBtn = LoginFXML().subKey();
+                 return new Controller(eventBtn);
+             };
 
-        /**Labels Section**/
-        Label userLabel = new Label("User Name");
-        userLabel.setLabelFor(userNameField);
-        userLabel.setMnemonicParsing(true);
-       
-        Label passwordLabel = new Label("Password"); 
-        passwordLabel.setLabelFor(passwordField);
-        passwordLabel.setMnemonicParsing(true);
-
-
-        Button loginBtn = new Button("Login");
-        loginBtn.setWrapText(true);
-        loginBtn.setText("_Enter");
+             DependancyInjector.addInjectionMethod(Controller.class, controllerFactory);
+         }
+*/
         
         /*
             *TODO: Clear Clunky code 
@@ -58,8 +55,9 @@ public class App extends Application {
         
         //For users who like to use their mouse
 
-        Records_Display layout1 = new Records_Display();
-        Scene scene2 = new Scene(layout1, 840, 550);
+
+
+/*
         final EventHandler<KeyEvent> subKey = new EventHandler<KeyEvent>(){
             public void handle(KeyEvent e){
                 final String user = userNameField.getText();
@@ -87,6 +85,8 @@ public class App extends Application {
                 }
             }
         };
+*/
+
 //  TODO: # Fix click mouse event for login button
         // final EventHandler<InputEvent> subClick = new EventHandler<InputEvent>(){
         //     public void handle(InputEvent e){
@@ -118,49 +118,21 @@ public class App extends Application {
         //  Find a way to handle mouse click events
         // loginBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, subClick);
 
-
-
-
-            //global event listener for enter key to submit
-            TPane.addEventHandler(KeyEvent.KEY_PRESSED, subKey);
-
-          
-
-
-
-
-
-
-        /**Tile Pane Prefs**/
-        TPane.setPrefColumns(1);
-        TPane.setPrefRows(3);
-        TPane.setTileAlignment(Pos.CENTER);        
-        TPane.setPrefTileHeight(25);
-        TPane.setPrefTileWidth(200);
-        TPane.setPadding(new Insets(10, 10, 0, 0));
-        TPane.setHgap(10.0);
-        TPane.setVgap(8.0);        
-        TPane.getChildren().addAll(bannerTxt, userLabel,userNameField, passwordLabel,passwordField, loginBtn);
         
-       /*   TODO: #Find a way to use tile pane and stack pane instead of vbox and hbox
-            TODO: # Or just use tile pane only without dealing with vbox and hbox
-       */ 
-        HBox hBox = new HBox(TPane);
-        hBox.setAlignment(Pos.CENTER);
-       VBox vBox = new VBox(hBox);
-       vBox.setAlignment(Pos.CENTER);
-        
-       /**Stage Prefs**/ 
-       Scene scene = new Scene(vBox, 840, 550);
-        stage.setScene(scene);
+        stage.setScene(loginScene);
+
         stage.setResizable(true);
         stage.setTitle("Welcome Screen");
         stage.show();
-    }
 
+    }
+    
     public static void main(String[] args) {
         Postgres.main(args);
         launch();
+    }
+    public static void hideWindow(Stage stage) throws Exception{
+       stage.getScene().getWindow().hide(); 
     }
 
 }
