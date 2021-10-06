@@ -10,6 +10,6 @@ public class AlertModule {
         alert.setHeaderText(title);
         alert.setContentText(msg);
         alert.initOwner(owner);
-        alert.show();
+        alert.showAndWait();
     }    
 }
