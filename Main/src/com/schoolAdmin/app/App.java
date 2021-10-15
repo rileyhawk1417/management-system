@@ -2,7 +2,7 @@ package com.schoolAdmin.app;
 
 import java.sql.SQLException;
 
-import com.schoolAdmin.database.mysql;
+import com.schoolAdmin.database.Mysql;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    mysql database = new mysql();
+    Mysql database = new Mysql();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -33,7 +33,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        mysql.main(args);
+        Mysql.main(args);
         launch();
     }
 

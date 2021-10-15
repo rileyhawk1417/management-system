@@ -5,7 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.schoolAdmin.database.mysql;
+import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.scenes.Records_Display;
 
@@ -25,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class LoginFXML {
+public class LoginCtrl {
     @FXML
     private TextField userField;
 
@@ -44,7 +44,7 @@ public class LoginFXML {
 
     Scene layout2 = new Scene(records_viewPane, 800, 800);
 
-    mysql database = new mysql();
+    Mysql database = new Mysql();
     Stage stage = new Stage();
     Records_Display records = new Records_Display();
     Scene scene2 = new Scene(records, 800, 800);

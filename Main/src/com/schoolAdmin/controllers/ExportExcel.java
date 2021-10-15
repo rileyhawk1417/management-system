@@ -6,7 +6,7 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.*;
-import com.schoolAdmin.database.mysql;
+import com.schoolAdmin.database.Mysql;
 
 
 public class ExportExcel {
@@ -17,7 +17,7 @@ public class ExportExcel {
 
         String query = "SELECT * FROM ace_hardware";
 
-        Connection conn = mysql.connector();
+        Connection conn = Mysql.connector();
         ResultSet res = conn.createStatement().executeQuery(query);
         
         XSSFWorkbook wb = new XSSFWorkbook();  
