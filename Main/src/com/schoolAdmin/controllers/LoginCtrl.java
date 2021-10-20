@@ -1,26 +1,21 @@
 package com.schoolAdmin.controllers;
 
-
 import java.net.URL;
-import java.sql.SQLException;
+// import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.modals.AlertModule;
+// import com.schoolAdmin.controllers.SceneCtrl;
 import com.schoolAdmin.scenes.Records_Display;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -51,26 +46,26 @@ public class LoginCtrl {
 
     // * This is just a reminder for when dealing with events
     // final EventHandler<KeyEvent> submit = new EventHandler<KeyEvent>() {
-    //     public void handle(KeyEvent e) {
-    //         final String user = userField.getText();
-    //         final String pass = passField.getText();
+    // public void handle(KeyEvent e) {
+    // final String user = userField.getText();
+    // final String pass = passField.getText();
 
-    //         if (e.getCode().equals(KeyCode.ENTER)) {
-    //             try {
-    //                 boolean val = database.validate(user, pass);
-    //                 if (val) {
-    //                     System.out.println("User Found");
-    //                 } else {
-    //                     System.out.println("Didnt find user");
-    //                 }
-    //             } catch (SQLException e1) {
-    //                 // TODO Auto-generated catch block
-    //                 e1.printStackTrace();
-    //             }
-    //         } else {
-    //             System.out.println("Failed");
-    //         }
-    //     }
+    // if (e.getCode().equals(KeyCode.ENTER)) {
+    // try {
+    // boolean val = database.validate(user, pass);
+    // if (val) {
+    // System.out.println("User Found");
+    // } else {
+    // System.out.println("Didnt find user");
+    // }
+    // } catch (SQLException e1) {
+    // // TODO Auto-generated catch block
+    // e1.printStackTrace();
+    // }
+    // } else {
+    // System.out.println("Failed");
+    // }
+    // }
     // };
 
     @FXML
@@ -96,10 +91,7 @@ public class LoginCtrl {
 
                 Parent root = FXMLLoader.load(getClass().getResource("../fxml/records_view.fxml"));
                 Scene layout3 = new Scene(root);
-                stage.setScene(layout3);
-                stage.setResizable(true);
-                stage.setTitle("Records");
-                stage.show();
+                SceneCtrl.switchScene(layout3, true, "Records", true);
             } else {
                 System.out.println("False");
                 AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Incorrect Details");

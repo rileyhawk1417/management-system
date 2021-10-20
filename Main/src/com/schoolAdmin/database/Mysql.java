@@ -12,15 +12,11 @@ public class Mysql {
     }
 
     public static boolean check(String search) throws SQLException {
-        		String sql = "select * from city WHERE name LIKE '"+search+"%'";
-        String exp = "%";
         String QUERY = "SELECT * FROM user_login WHERE name LIKE ?";
 
         try (Connection conn = connector();
 
-            PreparedStatement pstmt = conn.prepareStatement(QUERY);) {
-            pstmt.setString(1, exp+search+exp);
-           
+                PreparedStatement pstmt = conn.prepareStatement(QUERY);) {
 
             ResultSet res = pstmt.executeQuery();
             if (res.next()) {
@@ -34,14 +30,13 @@ public class Mysql {
         return false;
     }
 
-
     public boolean validate(String user, String pass) throws SQLException {
 
         String QUERY = "SELECT * FROM user_login WHERE name = ? AND password = ? ";
 
         try (Connection conn = connector();
 
-            PreparedStatement pstmt = conn.prepareStatement(QUERY);) {
+                PreparedStatement pstmt = conn.prepareStatement(QUERY);) {
             pstmt.setString(1, user);
             pstmt.setString(2, pass);
 
@@ -58,16 +53,16 @@ public class Mysql {
     }
 
     public static void searchDB(String query) {
-        String search = "select * from ace_hardware WHERE name LIKE '"+query+"%'"; 
+        String search = "select * from ace_hardware WHERE name LIKE '" + query + "%'";
         try (Connection conn = connector();
 
-            PreparedStatement pstmt = conn.prepareStatement(search);) {
+                PreparedStatement pstmt = conn.prepareStatement(search);) {
             ResultSet res = pstmt.executeQuery();
-                try{
-                while(res.next()){
-                    System.out.println(res.getString("id") + res.getString("name") + res.getString("detail")); 
+            try {
+                while (res.next()) {
+                    System.out.println(res.getString("id") + res.getString("name") + res.getString("detail"));
                 }
-                if(!res.next()){
+                if (!res.next()) {
                     System.out.println("Search failed");
                 }
             } catch (Exception e) {
@@ -78,6 +73,27 @@ public class Mysql {
             printSQLException(e);
             // TODO: handle exception
         }
+    }
+
+    public static void insertValues(String name, String detail, String units_used, String units_left, String restock) {
+        String values = "INSERT INTO ace_hardware (name, detail, units_used, units_left, restock) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            Connection conn = connector();
+            PreparedStatement pstmt = conn.prepareStatement(values);
+            pstmt.setString(1, name);
+            pstmt.setString(2, detail);
+            pstmt.setString(3, units_used);
+            pstmt.setString(4, units_left);
+            pstmt.setString(5, restock);
+
+            pstmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public static void printSQLException(SQLException ex) {
@@ -118,6 +134,6 @@ public class Mysql {
     }
 
     public static void main(String[] args) throws SQLException {
-        Mysql.checkConnection(); 
+        Mysql.checkConnection();
     }
 }
