@@ -3,13 +3,14 @@ package com.schoolAdmin.app;
 import java.sql.SQLException;
 
 import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.controllers.SceneCtrl;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -20,16 +21,9 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/login_screen.fxml"));
-       
 
         Scene loginScene = new Scene(root);
-
-        stage.setScene(loginScene);
-
-        stage.setResizable(true);
-        stage.setTitle("Welcome Screen");
-        stage.show();
-
+        SceneCtrl.switchScene(loginScene, true, "Welcome Screen", false);
     }
 
     public static void main(String[] args) throws SQLException {
