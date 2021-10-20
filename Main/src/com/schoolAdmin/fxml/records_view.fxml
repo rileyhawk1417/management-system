@@ -2,16 +2,17 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.controllers.TableCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.controllers.TableCtrl">
    <children>
       <Separator layoutY="30.0" prefWidth="600.0" />
       <SplitPane dividerPositions="0.7047781569965871" layoutX="7.0" layoutY="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
@@ -31,20 +32,25 @@
             </TableView>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="69.0">
                <children>
-                  <Text fx:id="sumOwing" layoutX="118.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  <Label fx:id="sumOwingLabel" layoutX="14.0" layoutY="68.0" text="No. Owing:" />
+                  <!-- <Button fx:id="refresh" layoutX="51.0" layoutY="228.0" mnemonicParsing="false" onAction="#reloadBtn" prefHeight="23.0" prefWidth="76.0" text="Reload" />
+                  <Button fx:id="exportBtn" layoutX="51.0" layoutY="152.0" mnemonicParsing="false" onAction="#printBtn" prefHeight="23.0" prefWidth="76.0" text="Export" />
+                  <Button fx:id="exit" layoutX="51.0" layoutY="265.0" mnemonicParsing="false" onAction="#exitBtn" prefHeight="23.0" prefWidth="76.0" text="Exit" /> -->
+                  <Button fx:id="subQuery" layoutX="51.0" layoutY="189.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="23.0" prefWidth="76.0" text="Search" /> 
+                  <TextField fx:id="searchBar" layoutX="5.0" layoutY="80.0" />
+                  <Text layoutX="21.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Looking for something?" />
+                  <!-- <Button fx:id="add_rec" layoutX="51.0" layoutY="307.0" mnemonicParsing="false" onAction="#add_screen" prefHeight="23.0" prefWidth="76.0" text="Add" /> -->
+                  <MenuButton fx:id="menu_Button" layoutX="55.0" layoutY="116.0" mnemonicParsing="false" text="Menu">
+                    <items>
+                      <MenuItem fx:id="refresh" mnemonicParsing="false" onAction="#reloadBtn" text="Reload" />
+                      <MenuItem fx:id="exportBtn" mnemonicParsing="false" onAction="#printBtn" text="Export" />
+                        <MenuItem fx:id="add_rec" mnemonicParsing="false" onAction="#add_screen" text="Add" />
+                        <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitBtn" text="Exit" />
+                    </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <ButtonBar layoutX="86.0" layoutY="2.0" prefHeight="25.0" prefWidth="200.0">
-        <buttons>
-            <Button fx:id="printQuery" mnemonicParsing="false" text="Print" />
-            <Button fx:id="subQuery" mnemonicParsing="false" text="Query" />
-            <Button fx:id="refresh" layoutX="30.0" layoutY="11.0" mnemonicParsing="false" onAction="#reloadBtn" text="Reload" />
-            <Button fx:id="exit" layoutX="220.0" layoutY="11.0" mnemonicParsing="false" onAction="#exitBtn" text="Exit" />
-        </buttons>
-      </ButtonBar>
    </children>
    <padding>
       <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
