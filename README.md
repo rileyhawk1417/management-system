@@ -13,11 +13,16 @@ Not everything might work since this is a testing branch, at least some things w
   - [x] Connect to JDBC driver for postgresql.
   - [x] Setup postgresql tables.
   - [x] Authenticate user or get message that user has been found.
-  - [ ] Read tables.
+  - [x] Read tables.
   - [ ] Insert tables.
   - [ ] Delete tables.
   - [ ] Update tables.
+  - [x] Export tables to excel document.
+   
+    - [ ] Possibly add an active menu to export to other formats such as PDF. Possibly fix the printer script in future as well.
 
+## Urgent
+- [ ] Figure out a way to ask for DB connection and select type of database from the beginning.
 ## Scenes
 
 - [ ] If user has been found take user to another screen.
