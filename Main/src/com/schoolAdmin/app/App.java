@@ -20,7 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/login_screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/login_screen.fxml"));
 
         Scene loginScene = new Scene(root);
         SceneCtrl.switchScene(loginScene, true, "Welcome Screen", false);

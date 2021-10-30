@@ -25,47 +25,47 @@ import com.schoolAdmin.database.Mysql;
 
 public class TableCtrl implements Initializable {
   Stage stage = new Stage();
-  
+
   @FXML
   TableView<TableModel> psqlTable;
-  
+
   @FXML
   TableColumn<TableModel, String> idColmn;
-  
+
   @FXML
   TableColumn<TableModel, String> itemName;
-  
+
   @FXML
   TableColumn<TableModel, String> description;
-  
+
   @FXML
   TableColumn<TableModel, String> unitsConsumed;
-  
+
   @FXML
   TableColumn<TableModel, String> unitsLeft;
-  
+
   @FXML
   TableColumn<TableModel, String> restock;
-  
+
   @FXML
   private TextField searchBar;
-  
+
   @FXML
   private MenuItem printQuery;
 
   @FXML
   private Button subQuery;
-  
+
   @FXML
   private MenuItem refresh;
-  
+
   @FXML
   private MenuItem exit;
 
   @FXML
   private MenuItem add_rec;
 
-  
+
   TableModel content;
   ObservableList<TableModel> records;
 
@@ -74,7 +74,7 @@ public class TableCtrl implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     assert psqlTable != null : "Failed to load databaseTable";
-    
+
     idColmn.setCellValueFactory(new PropertyValueFactory<TableModel, String>("idCol"));
     itemName.setCellValueFactory(new PropertyValueFactory<TableModel, String>("item_name"));
     description.setCellValueFactory(new PropertyValueFactory<TableModel, String>("desc"));
@@ -82,7 +82,7 @@ public class TableCtrl implements Initializable {
     unitsLeft.setCellValueFactory(new PropertyValueFactory<TableModel, String>("units_left"));
     restock.setCellValueFactory(new PropertyValueFactory<TableModel, String>("restock"));
 
-    try { 
+    try {
       records = loadTable();
     } catch (Exception e) {
       e.printStackTrace();
@@ -91,24 +91,24 @@ public class TableCtrl implements Initializable {
     psqlTable.setItems(records);
   }
 
-  
+
   public static ObservableList<TableModel> loadTable() {
-    
+
     ObservableList<TableModel> loadList = FXCollections.observableArrayList();
-    
+
     try {
       Connection con = Mysql.connector();
-      
+
       ResultSet res = con.createStatement().executeQuery("SELECT * FROM ace_hardware");
-      
+
       while (res.next()) {
 
         loadList.add(new TableModel(
           res.getString("id"),
-          res.getString("name"), 
+          res.getString("name"),
           res.getString("detail"),
-          res.getString("units_used"), 
-          res.getString("units_left"), 
+          res.getString("units_used"),
+          res.getString("units_left"),
           res.getString("restock")));
         }
         System.out.println(loadList.size());
@@ -118,14 +118,14 @@ public class TableCtrl implements Initializable {
       e.printStackTrace();
       System.out.println(e.getMessage());
       System.out.println("Error loading Table");
-    
+
     }
     return loadList;
   }
-    
+
   public static ObservableList<TableModel> searchDB(String query, Window owner) {
     ObservableList<TableModel> queryList = FXCollections.observableArrayList();
-        String search = "select * from ace_hardware WHERE name LIKE '"+query+"%'"; 
+        String search = "select * from ace_hardware WHERE name LIKE '"+query+"%'";
         try (Connection conn = Mysql.connector();
 
             PreparedStatement pstmt = conn.prepareStatement(search);) {
@@ -135,11 +135,11 @@ public class TableCtrl implements Initializable {
                 while(res.next()){
                               queryList.add(new TableModel(
                                 res.getString("id"),
-                                res.getString("name"), 
+                                res.getString("name"),
                                 res.getString("detail"),
-                                res.getString("units_used"), 
-                                res.getString("units_left"), 
-                                res.getString("restock"))); 
+                                res.getString("units_used"),
+                                res.getString("units_left"),
+                                res.getString("restock")));
                 }
                // Error still triggered even if results are found
                 // if(!res.next()){
@@ -153,16 +153,16 @@ public class TableCtrl implements Initializable {
                 System.out.println("Nothing found");
             }
         } catch (SQLException e) {
-          e.printStackTrace(); 
+          e.printStackTrace();
             // TODO: handle exception
         }
         return queryList;
     }
 
-  
+
   @FXML
   private void exitBtn(ActionEvent event){
-   App.closeApp(); 
+   App.closeApp();
   }
 
   @FXML
@@ -172,7 +172,7 @@ public class TableCtrl implements Initializable {
 
   public void addScreen(){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("../fxml/insert_screen.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/insert_screen.fxml"));
       Scene update = new Scene(root);
       SceneCtrl.switchScene(update, true, "Update Records", false);
       loadTable();
@@ -190,10 +190,10 @@ public class TableCtrl implements Initializable {
 
   }
 
-  
+
   @FXML
   private void searchBtn(ActionEvent event){
-    
+
     Window owner = subQuery.getScene().getWindow();
     try{
       records.removeAll();

@@ -89,7 +89,7 @@ public class LoginCtrl {
                 AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Login Successful", "Welcome");
                 subBtn.getScene().getWindow().hide();
 
-                Parent root = FXMLLoader.load(getClass().getResource("../fxml/records_view.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/records_view.fxml"));
                 Scene layout3 = new Scene(root);
                 SceneCtrl.switchScene(layout3, true, "Records", true);
             } else {
