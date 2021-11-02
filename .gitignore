@@ -1,2 +1,13 @@
 Main/lib/
 .vscode/
+Main/src/com/schoolAdmin/database/mysql.class
+Main/src/com/schoolAdmin/scenes/Login.java
+.idea/libraries
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+school_Admin_Management.iml
+out
+Main/src/com/schoolAdmin/controllers/SceneCtrl.java
+.idea
