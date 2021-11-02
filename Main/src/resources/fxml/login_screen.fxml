@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -14,11 +17,29 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.controllers.LoginCtrl">
    <children>
       <VBox id="VBOX_Parent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="840.0">
          <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER">
                <font>
                   <Font name="Times New Roman" size="36.0" />
@@ -29,7 +50,7 @@
             </Text>
             <ImageView fitHeight="257.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/2560x1440.png" />
+                  <Image url="@../images/2560x1440.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER">
@@ -45,7 +66,7 @@
                         <PasswordField id="pass" fx:id="passField" />
                         <Button id="submitBtn" fx:id="subBtn" onAction="#subKey" text="Login" />
                      </children>
-                  </TilePane>
+                  </TilePane> 
                </children>
             </HBox>
          </children>

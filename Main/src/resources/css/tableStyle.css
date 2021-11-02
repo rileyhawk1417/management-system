@@ -1,0 +1,39 @@
+.psqlTable-view, .tree-psqlTable-view
+{
+    -fx-table-header-border-color: transparent;
+    -fx-table-cell-border: -fx-box-border;
+    -fx-background-color: transparent;
+}
+
+.psqlTable-view .filler, .tree-psqlTable-view .filler, .psqlTable .column-header,
+.tree-psqlTable-view, .column-header
+{
+    -fx-size: 65;
+    -fx-border-color: null;
+    -fx-border-color: -swatch-grey;
+    -fx-border-width: 0 0 2 0;
+    -fx-background-color: transparent;
+}
+
+.psqlTable .column-header .label, .psqlTable .filler .label,
+.psqlTable .column-drag-header .label, .tree-psqlTable-view .column-header .label,
+.tree-psqlTable-view .filler .label, .tree-psqlTable-view .column-drag-header .label
+{
+    -fx-alignment: CENTER_LEFT;
+}
+
+.psqlTable-view .column-header-background, .tree-psqlTable-view .column-header-background
+{
+    -fx-background-color: transparent;
+}
+
+.psqlTable-row-cell, .tree-psqlTable-row-cell
+{
+    -fx-cell-size: 40px;
+}
+
+.psqlTable
+{
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+}
