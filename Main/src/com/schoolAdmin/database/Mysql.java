@@ -96,6 +96,41 @@ public class Mysql {
 
     }
 
+    public static void updateValues( String name, String detail, int units_used, int units_left, String restock, int id){
+        String update = "UPDATE ace_hardware SET name= ?, detail = ?, units_used = ?, units_left = ?, restock = ? WHERE id=?";
+        try{
+            Connection conn = connector();
+            PreparedStatement pstmt = conn.prepareStatement(update);
+            pstmt.setString(1, name);
+            pstmt.setString(2, detail);
+            pstmt.setInt(3, units_used);
+            pstmt.setInt(4, units_left);
+            pstmt.setString(5, restock);
+            pstmt.setInt(6, id);
+
+            pstmt.execute();
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteRow( String id_){
+        String update = "DELETE FROM ace_hardware WHERE id = ? ";
+        try{
+            Connection conn = connector();
+            PreparedStatement pstmt = conn.prepareStatement(update);
+            pstmt.setString(1, id_);
+            
+            pstmt.execute();
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
     public static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
@@ -135,5 +170,6 @@ public class Mysql {
 
     public static void main(String[] args) throws SQLException {
         Mysql.checkConnection();
+        // Mysql.updateValues("Kali", "Linux", 500, 600, "f", 16);
     }
 }
