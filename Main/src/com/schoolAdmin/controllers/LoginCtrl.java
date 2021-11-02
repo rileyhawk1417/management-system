@@ -4,10 +4,11 @@ import java.net.URL;
 // import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.schoolAdmin.controllers.misc.SceneCtrl;
 import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.modals.AlertModule;
 // import com.schoolAdmin.controllers.SceneCtrl;
-import com.schoolAdmin.scenes.Records_Display;
+
 
 import javafx.event.ActionEvent;
 
@@ -35,15 +36,9 @@ public class LoginCtrl {
     @FXML
     private Button subBtn;
 
-    AnchorPane records_viewPane = new AnchorPane();
-
-    Scene layout2 = new Scene(records_viewPane, 800, 800);
-
     Mysql database = new Mysql();
     Stage stage = new Stage();
-    Records_Display records = new Records_Display();
-    Scene scene2 = new Scene(records, 800, 800);
-
+    SceneCtrl scene_switcher = new SceneCtrl();
     // * This is just a reminder for when dealing with events
     // final EventHandler<KeyEvent> submit = new EventHandler<KeyEvent>() {
     // public void handle(KeyEvent e) {
@@ -85,13 +80,13 @@ public class LoginCtrl {
             auth = Authenticate();
             if (auth) {
                 System.out.println("User Found");
-
                 AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Login Successful", "Welcome");
                 subBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../../../resources/fxml/records_view.fxml"));
+        Scene records = new Scene(root);
+        SceneCtrl.switchScene(records, true, "View Records ", false);
 
-                Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/records_view.fxml"));
-                Scene layout3 = new Scene(root);
-                SceneCtrl.switchScene(layout3, true, "Records", true);
+                // scene_switcher.rec_scene();
             } else {
                 System.out.println("False");
                 AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Incorrect Details");

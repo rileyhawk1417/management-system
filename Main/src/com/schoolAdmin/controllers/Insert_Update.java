@@ -77,14 +77,17 @@ public class Insert_Update implements Initializable {
    }
 
    public void grabTxt(Window owner) {
+      String fname = name_entry.getText();
+      String details = detail_entry.getText();
+      String unitsUsed = units_used_entry.getText();
+      String unitsLeft = units_left_entry.getText();
+       
       try {
-         if (name_entry.getText().isEmpty() || units_used_entry.getText().isEmpty()
-               || units_left_entry.getText().isEmpty()) {
+         if (fname.isEmpty()  || details.isEmpty() || unitsUsed.isEmpty() || unitsLeft.isEmpty()) {
             AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Please enter all fields");
 
          } else {
-            Mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
-                  units_left_entry.getText(), checkBox);
+            Mysql.insertValues(fname, details, unitsUsed, unitsLeft, "");
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry
             // TODO Reload is done manually after window closes
@@ -93,18 +96,6 @@ public class Insert_Update implements Initializable {
 
          }
 
-         /*
-          * if (units_used_entry.getText().isEmpty()) {
-          * AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error",
-          * "This field is required");
-          * 
-          * } if (units_left_entry.getText().isEmpty()) {
-          * AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error",
-          * "This field is required");
-          * 
-          * }
-          */
-         // choiceSelector();
 
       } catch (Exception e) {
          AlertModule.showAlert(Alert.AlertType.ERROR, owner, "System Error", "Something is broken :(");
@@ -112,6 +103,50 @@ public class Insert_Update implements Initializable {
          e.printStackTrace();
       }
    }
+
+   public void updateRow(Window owner) {
+      String fname = name_entry.getText();
+      String details = detail_entry.getText();
+      String unitsUsed = units_used_entry.getText();
+      String unitsLeft = units_left_entry.getText();
+       
+      try {
+         //TODO figure out function to check if txt is empty or not
+         if (fname.isEmpty()  && details.isEmpty() && unitsUsed.isEmpty() && unitsLeft.isEmpty()) {
+            AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Unchanged fields", "Select a field to update");
+
+         } 
+         else if (fname.isEmpty()) {
+            // AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Unchanged fields", "Select a field to update");
+            System.out.println("Field unchanged");
+         } else if(details.isEmpty()){
+            System.out.println("Field Unchanged");
+         } else if(unitsUsed.isEmpty()){
+            System.out.println("Field unchanged");
+         } else if(unitsLeft.isEmpty()){
+            System.out.println("Field unchanged");
+           
+         }
+         
+         
+            else {
+            Mysql.insertValues(fname, details, unitsUsed, unitsLeft, "");
+            AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
+            // TODO cannot auto reload results after entry
+            // TODO Reload is done manually after window closes
+            // TableCtrl.reloadTable();;
+            insert_update.getScene().getWindow().hide();
+
+         }
+
+
+      } catch (Exception e) {
+         AlertModule.showAlert(Alert.AlertType.ERROR, owner, "System Error", "Something is broken :(");
+         System.out.println(e.getMessage());
+         e.printStackTrace();
+      }
+   }
+
 
    @FXML
    private void cancel(ActionEvent event) {

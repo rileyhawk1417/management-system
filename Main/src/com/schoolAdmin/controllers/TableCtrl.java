@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 // import javax.swing.Icon;
 import com.schoolAdmin.app.App;
+import com.schoolAdmin.controllers.misc.SceneCtrl;
 import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.modals.TableModel;
 import com.schoolAdmin.database.Mysql;
@@ -65,6 +66,11 @@ public class TableCtrl implements Initializable {
   @FXML
   private MenuItem add_rec;
 
+  @FXML
+  private MenuItem delete_;
+
+  @FXML
+  private MenuItem delete_by_name;
 
   TableModel content;
   ObservableList<TableModel> records;
@@ -159,6 +165,14 @@ public class TableCtrl implements Initializable {
         return queryList;
     }
 
+    public void delete_row(){
+      ObservableList<TableModel> selectedProduct, allProducts;
+      allProducts = psqlTable.getItems();
+      selectedProduct = psqlTable.getSelectionModel().getSelectedItems();
+      selectedProduct.forEach(allProducts::remove);
+      int row = psqlTable.getSelectionModel().getSelectedIndex();
+      System.out.println(row);
+    }
 
   @FXML
   private void exitBtn(ActionEvent event){
@@ -174,7 +188,7 @@ public class TableCtrl implements Initializable {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/insert_screen.fxml"));
       Scene update = new Scene(root);
-      SceneCtrl.switchScene(update, true, "Update Records", false);
+      // SceneCtrl.switchScene(update, true, "Update Records", false);
       loadTable();
     } catch (IOException e) {
       // TODO Auto-generated catch block
@@ -212,4 +226,15 @@ public class TableCtrl implements Initializable {
     records = loadTable();
     psqlTable.setItems(records);
   }
+
+  @FXML
+  private void delete_btn(){
+    delete_row();
+  }
+
+  @FXML
+  private void delete_by_name_name(){
+
+  }
+
 }

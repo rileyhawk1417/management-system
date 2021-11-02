@@ -2,8 +2,8 @@ package com.schoolAdmin.app;
 
 import java.sql.SQLException;
 
+import com.schoolAdmin.controllers.misc.SceneCtrl;
 import com.schoolAdmin.database.Mysql;
-import com.schoolAdmin.controllers.SceneCtrl;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,14 +16,11 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     Mysql database = new Mysql();
+    SceneCtrl scene_switcher = new SceneCtrl();
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/login_screen.fxml"));
-
-        Scene loginScene = new Scene(root);
-        SceneCtrl.switchScene(loginScene, true, "Welcome Screen", false);
+       scene_switcher.login_scene(); 
     }
 
     public static void main(String[] args) throws SQLException {
