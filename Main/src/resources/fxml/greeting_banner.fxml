@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.misc.WelcomeCtrl">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,8 +25,8 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin" GridPane.columnIndex="1" />
       <Text layoutX="210.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cashier" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Text layoutX="210.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Help" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Admin Login" GridPane.columnIndex="2" />
-      <Button mnemonicParsing="false" text="Cashier Login" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" text="View Manual" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button fx:id="admin_" mnemonicParsing="false" onAction="#admin_login" text="Admin Login" GridPane.columnIndex="2" />
+      <Button fx:id="cashier_" mnemonicParsing="false" onAction="#cashier_login" text="Cashier Login" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button fx:id="manual_" mnemonicParsing="false" onAction="#view_manual" text="View Manual" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
 </GridPane>
