@@ -11,7 +11,7 @@ public class Mysql {
         return DriverManager.getConnection(db, user, password);
     }
 
-    public static boolean check(String search) throws SQLException {
+    public boolean check(String search) throws SQLException {
         String QUERY = "SELECT * FROM user_login WHERE name LIKE ?";
 
         try (Connection conn = connector();
@@ -52,7 +52,7 @@ public class Mysql {
         return false;
     }
 
-    public static void searchDB(String query) {
+    public void searchDB(String query) {
         String search = "select * from ace_hardware WHERE name LIKE '" + query + "%'";
         try (Connection conn = connector();
 
@@ -75,7 +75,7 @@ public class Mysql {
         }
     }
 
-    public static void insertValues(String name, String detail, String units_used, String units_left, String restock) {
+    public void insertValues(String name, String detail, String units_used, String units_left, String restock) {
         String values = "INSERT INTO ace_hardware (name, detail, units_used, units_left, restock) VALUES (?, ?, ?, ?, ?)";
 
         try {
@@ -96,17 +96,17 @@ public class Mysql {
 
     }
 
-    public static void updateValues( String name, String detail, int units_used, int units_left, String restock, int id){
+    public void updateValues( String name, String detail, String units_used, String units_left, String restock, String id){
         String update = "UPDATE ace_hardware SET name= ?, detail = ?, units_used = ?, units_left = ?, restock = ? WHERE id=?";
         try{
             Connection conn = connector();
             PreparedStatement pstmt = conn.prepareStatement(update);
             pstmt.setString(1, name);
             pstmt.setString(2, detail);
-            pstmt.setInt(3, units_used);
-            pstmt.setInt(4, units_left);
+            pstmt.setString(3, units_used);
+            pstmt.setString(4, units_left);
             pstmt.setString(5, restock);
-            pstmt.setInt(6, id);
+            pstmt.setString(6, id);
 
             pstmt.execute();
         } catch(SQLException e){
@@ -115,7 +115,7 @@ public class Mysql {
         }
     }
 
-    public static void deleteRow( String id_){
+    public void delete_row_by_id( String id_){
         String update = "DELETE FROM ace_hardware WHERE id = ? ";
         try{
             Connection conn = connector();
@@ -129,9 +129,23 @@ public class Mysql {
         }
     }
 
+    public void delete_row_by_name( String name_){
+        String update = "DELETE FROM ace_hardware WHERE name = ? ";
+        try{
+            Connection conn = connector();
+            PreparedStatement pstmt = conn.prepareStatement(update);
+            pstmt.setString(1, name_);
+            
+            pstmt.execute();
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
-    public static void printSQLException(SQLException ex) {
+
+    public void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
                 e.printStackTrace(System.err);
@@ -148,7 +162,7 @@ public class Mysql {
         }
     }
 
-    public static Connection checkConnection() {
+    public Connection checkConnection() {
         Connection conn = null;
 
         try {
@@ -169,7 +183,8 @@ public class Mysql {
     }
 
     public static void main(String[] args) throws SQLException {
-        Mysql.checkConnection();
-        // Mysql.updateValues("Kali", "Linux", 500, 600, "f", 16);
+        Mysql mysql = new Mysql();
+        mysql.checkConnection(); 
     }
+
 }
