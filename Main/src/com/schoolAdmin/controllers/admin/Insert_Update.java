@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 public class Insert_Update implements Initializable {
+   Mysql mysql = new Mysql();
 
    @FXML
    private Button cancel_insert;
@@ -83,7 +84,7 @@ public class Insert_Update implements Initializable {
             AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Please enter all fields");
 
          } else {
-            Mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
+            mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
                   units_left_entry.getText(), checkBox);
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry

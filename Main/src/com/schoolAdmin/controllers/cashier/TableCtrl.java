@@ -1,4 +1,4 @@
-package com.schoolAdmin.controllers.admin;
+package com.schoolAdmin.controllers.cashier;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,10 +52,7 @@ public class TableCtrl implements Initializable {
 
   @FXML
   private TextField searchBar;
-
-  @FXML
-  private MenuItem printQuery;
-
+  
   @FXML
   private Button subQuery;
 
@@ -237,13 +234,6 @@ public class TableCtrl implements Initializable {
     records = loadTable();
     psqlTable.setItems(records);
   }
-  @FXML
-  private void export_rec(ActionEvent event) throws IOException{
-    Window owner = psqlTable.getScene().getWindow();
-    ExportExcel.exportToExcel(owner);
-
-  }
-
 //User actions
   @FXML
   private void manual_btn(){}
