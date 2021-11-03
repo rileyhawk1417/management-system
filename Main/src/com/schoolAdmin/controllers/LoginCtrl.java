@@ -9,7 +9,6 @@ import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.modals.AlertModule;
 // import com.schoolAdmin.controllers.SceneCtrl;
 
-
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -82,11 +81,7 @@ public class LoginCtrl {
                 System.out.println("User Found");
                 AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Login Successful", "Welcome");
                 subBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../../../resources/fxml/records_view.fxml"));
-        Scene records = new Scene(root);
-        SceneCtrl.switchScene(records, true, "View Records ", false);
-
-                // scene_switcher.rec_scene();
+                scene_switcher.rec_scene();
             } else {
                 System.out.println("False");
                 AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Incorrect Details");

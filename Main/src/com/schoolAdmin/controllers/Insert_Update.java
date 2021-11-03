@@ -3,6 +3,7 @@ package com.schoolAdmin.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.schoolAdmin.controllers.admin.TableCtrl;
 import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.modals.AlertModule;
 
@@ -20,6 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 public class Insert_Update implements Initializable {
+   TableCtrl psqlTable = new TableCtrl();
+   Mysql mysql = new Mysql();
 
    @FXML
    private Button cancel_insert;
@@ -76,18 +79,18 @@ public class Insert_Update implements Initializable {
       return checkBox;
    }
 
+   String fname = name_entry.getText();
+   String details = detail_entry.getText();
+   String unitsUsed = units_used_entry.getText();
+   String unitsLeft = units_left_entry.getText();
    public void grabTxt(Window owner) {
-      String fname = name_entry.getText();
-      String details = detail_entry.getText();
-      String unitsUsed = units_used_entry.getText();
-      String unitsLeft = units_left_entry.getText();
        
       try {
          if (fname.isEmpty()  || details.isEmpty() || unitsUsed.isEmpty() || unitsLeft.isEmpty()) {
             AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Please enter all fields");
 
          } else {
-            Mysql.insertValues(fname, details, unitsUsed, unitsLeft, "");
+            mysql.insertValues(fname, details, unitsUsed, unitsLeft, "");
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry
             // TODO Reload is done manually after window closes
@@ -105,11 +108,6 @@ public class Insert_Update implements Initializable {
    }
 
    public void updateRow(Window owner) {
-      String fname = name_entry.getText();
-      String details = detail_entry.getText();
-      String unitsUsed = units_used_entry.getText();
-      String unitsLeft = units_left_entry.getText();
-       
       try {
          //TODO figure out function to check if txt is empty or not
          if (fname.isEmpty()  && details.isEmpty() && unitsUsed.isEmpty() && unitsLeft.isEmpty()) {
@@ -130,11 +128,12 @@ public class Insert_Update implements Initializable {
          
          
             else {
-            Mysql.insertValues(fname, details, unitsUsed, unitsLeft, "");
+            mysql.updateValues(fname, details, unitsUsed, unitsLeft, "", psqlTable.id_col );
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry
             // TODO Reload is done manually after window closes
             // TableCtrl.reloadTable();;
+            System.out.println(psqlTable.id_col);
             insert_update.getScene().getWindow().hide();
 
          }

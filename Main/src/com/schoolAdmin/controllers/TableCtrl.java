@@ -67,7 +67,7 @@ public class TableCtrl implements Initializable {
   private MenuItem add_rec;
 
   @FXML
-  private MenuItem delete_;
+  private MenuItem delete_by_id;
 
   @FXML
   private MenuItem delete_by_name;
@@ -228,12 +228,12 @@ public class TableCtrl implements Initializable {
   }
 
   @FXML
-  private void delete_btn(){
+  private void delete_by_id_btn(){
     delete_row();
   }
 
   @FXML
-  private void delete_by_name_name(){
+  private void delete_by_name_btn(){
 
   }
 
