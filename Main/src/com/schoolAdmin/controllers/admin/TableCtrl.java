@@ -187,9 +187,10 @@ public class TableCtrl implements Initializable {
       e.printStackTrace();
     }
   }
-   public String id_col = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
-
-  public void deleteRow(){
+   public String id_col; 
+   
+   public void deleteRow(){
+    id_col= psqlTable.getSelectionModel().getSelectedItem().getIdCol();
     ObservableList<TableModel> selectedRow, allRows;
     allRows = psqlTable.getItems();
     selectedRow = psqlTable.getSelectionModel().getSelectedItems();
@@ -200,6 +201,8 @@ public class TableCtrl implements Initializable {
     selectedRow.forEach(allRows::remove);
   }
 
+  public void delete_by_name(){}
+
   //File actions
   @FXML
   private void add_screen(){
@@ -207,13 +210,13 @@ public class TableCtrl implements Initializable {
   }
 
   @FXML
-  private void delete_btn(){
+  private void delete_by_id_btn(){
     deleteRow();
   }
   
   @FXML
   private void delete_by_name_btn(){
-
+    scene_switcher.bulk_delete_scene();
   }
 
   @FXML
@@ -249,13 +252,21 @@ public class TableCtrl implements Initializable {
   private void manual_btn(){}
 
   @FXML
-  private void about_btn(){}
+  private void about_btn(){
+    scene_switcher.about_scene();
+  }
 
   @FXML
-  private void log_out_btn(){}
+  private void log_out_btn(){
+    psqlTable.getScene().getWindow().hide();
+    scene_switcher.login_scene();
+  }
 
   @FXML
-  private void switch_user(){}
+  private void switch_user(){
+    psqlTable.getScene().getWindow().hide();
+    scene_switcher.login_scene();
+  }
 
   @FXML
   private void exitBtn(ActionEvent event){
