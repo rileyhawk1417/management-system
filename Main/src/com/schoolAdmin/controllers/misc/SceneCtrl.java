@@ -9,11 +9,13 @@ import javafx.fxml.FXMLLoader;
 
 public class SceneCtrl {
     // TODO not seeing resources folder
-    public static String login_screen = "/resources/fxml/login_screen.fxml";
-    public static String add_screen = "/resources/fxml/admin/insert_screen.fxml";
-    public static String records_screen = "/resources/fxml/admin/records_view.fxml";
-    public static String greeting_screen = "/resources/fxml/greeting_banner.fxml";
-    public static String update_screen = "/resources/fxml/admin/update_screen.fxml";
+    String login_screen = "/resources/fxml/login_screen.fxml";
+    String add_screen = "/resources/fxml/admin/insert_screen.fxml";
+    String records_screen = "/resources/fxml/admin/records_view.fxml";
+    String greeting_screen = "/resources/fxml/greeting_banner.fxml";
+    String update_screen = "/resources/fxml/admin/update_screen.fxml";
+    String bulk_delete_screen = "/resources/fxml/admin/delete_by_name.fxml";
+    String about_screen = "/resources/fxml/about.fxml";
 
     public static void switchScene(Scene scene, boolean truth, String title, boolean option) {
         Stage stage = new Stage();
@@ -47,7 +49,7 @@ public class SceneCtrl {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(records_screen));
             Scene records = new Scene(root);
-            switchScene(records, true, "View Inventory ", false);
+            switchScene(records, true, "View Inventory ", true);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -75,4 +77,27 @@ public class SceneCtrl {
             e.printStackTrace();
         }
     }
+    
+    public void bulk_delete_scene() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(bulk_delete_screen));
+            Scene bulk_delete = new Scene(root);
+            switchScene(bulk_delete, true, "Delete Records By Name", false);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void about_scene() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(about_screen));
+            Scene about = new Scene(root);
+            switchScene(about, true, "About Screen", false);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 }
