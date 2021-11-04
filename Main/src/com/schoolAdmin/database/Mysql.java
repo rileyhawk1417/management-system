@@ -130,13 +130,14 @@ public class Mysql {
     }
 
     public void delete_row_by_name( String name_){
-        String update = "DELETE FROM ace_hardware WHERE name = ? ";
-        try{
+        String update = "DELETE FROM ace_hardware WHERE name LIKE '" +name_ + "%'";
+       
+        try(
             Connection conn = connector();
-            PreparedStatement pstmt = conn.prepareStatement(update);
-            pstmt.setString(1, name_);
+            PreparedStatement pstmt = conn.prepareStatement(update);){
+            // pstmt.setString(1, name_);
             
-            pstmt.execute();
+            pstmt.executeQuery();
         } catch(SQLException e){
             System.out.println(e.getMessage());
             e.printStackTrace();
