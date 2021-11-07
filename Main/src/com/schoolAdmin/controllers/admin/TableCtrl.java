@@ -7,28 +7,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import javafx.event.*;
-
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
-
 import com.schoolAdmin.app.App;
 import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.modals.TableModel;
 import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.controllers.misc.SceneCtrl;
+import com.schoolAdmin.controllers.admin.UpdateCtrl;
 
 public class TableCtrl implements Initializable {
   Stage stage = new Stage();
   Mysql mysql = new Mysql();
   SceneCtrl scene_switcher = new SceneCtrl();
+  UpdateCtrl update;
+  Window owner = stage.getOwner();
 
+  /*
+  *Table View and Table Column 
+  */
   @FXML
   TableView<TableModel> psqlTable;
 
@@ -50,14 +53,50 @@ public class TableCtrl implements Initializable {
   @FXML
   TableColumn<TableModel, String> restock;
 
+  /*
+  *TextFields 
+  */
   @FXML
   private TextField searchBar;
 
   @FXML
-  private MenuItem printQuery;
+  private TextField side_id_entry;
 
   @FXML
+  private TextField side_name_entry;
+
+  @FXML
+  private TextField side_detail_entry;
+
+  @FXML
+  private TextField side_units_used_entry;
+
+  @FXML
+  private TextField side_units_left_entry;
+
+  @FXML
+  private TextField side_restock_entry;
+
+  
+  /*
+  *Buttons 
+  */
+  
+  @FXML
   private Button subQuery;
+  
+  @FXML
+  private Button discard_;
+
+  @FXML
+  private Button update_btn;
+
+  /* 
+  * Menu Items 
+  */
+
+  @FXML
+  private MenuItem printQuery;
 
   @FXML
   private MenuItem refresh;
@@ -83,7 +122,19 @@ public class TableCtrl implements Initializable {
   @FXML
   private MenuItem switch_user_;
 
-  TableModel content;
+  @FXML
+  private MenuItem update_row;
+
+  @FXML
+  private MenuItem update_option;
+
+  @FXML
+  private VBox sideBar_1;
+
+  @FXML
+  private VBox sideBar_2;
+
+  TableModel table = null;
   ObservableList<TableModel> records;
 
 
@@ -101,6 +152,7 @@ public class TableCtrl implements Initializable {
 
     try {
       records = loadTable();
+      table_click_Listener();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -198,7 +250,7 @@ public class TableCtrl implements Initializable {
     String id_ = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
     System.out.println(id_);
     mysql.delete_row_by_id(id_);
-    selectedRow.forEach(allRows::remove);
+    selectedRow.forEach(allRows::remove); 
   }
 
   public void delete_by_name(){}
@@ -207,6 +259,50 @@ public class TableCtrl implements Initializable {
   @FXML
   private void add_screen(){
     addScreen();
+  }
+  
+  @FXML
+  
+    //TODO Method 1
+    // update.setField("150", "25", "3", "4", "5");
+
+    //TODO Method 2
+    // UpdateCtrl update = new UpdateCtrl("1", "2", "3", "4", "5");
+  
+
+  //TODO Method 3 click listener
+  public void table_click_Listener(){
+    psqlTable.getSelectionModel().selectedItemProperty().addListener((obs, old_selection, new_selection) -> { 
+      side_id_entry.setText(new_selection.getIdCol());
+      side_name_entry.setText(new_selection.getItem_name());
+      side_detail_entry.setText(new_selection.getDesc());
+      side_units_used_entry.setText(new_selection.getUnits_used());
+      side_units_left_entry.setText(new_selection.getUnits_left()); 
+    });
+  }
+
+
+  @FXML
+  private void confirm_update(){
+    try{
+      mysql.updateValues(side_name_entry.getText(), side_detail_entry.getText(), side_units_used_entry.getText(), side_units_left_entry.getText(), "", side_id_entry.getText());
+      AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Action Completed", "Record updated successfully");
+      reloadBtn();
+    } catch(Exception e){
+      AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Failed to complete action", "Failed to update record");
+      e.getMessage();
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  private void discard_changes(){
+        side_id_entry.clear();
+        side_name_entry.clear();
+        side_detail_entry.clear();
+        side_units_used_entry.clear();
+        side_units_left_entry.clear();
+
   }
 
   @FXML
@@ -233,8 +329,8 @@ public class TableCtrl implements Initializable {
   }
 
   //TODO cannot make static reference to FXML as they would crash program
-  @FXML
-  private void reloadBtn(ActionEvent event){
+  // @FXML
+  private void reloadBtn(){
     //Clear current view then load results
     records.removeAll();
     records = loadTable();
@@ -246,6 +342,15 @@ public class TableCtrl implements Initializable {
     ExportExcel.exportToExcel(owner);
 
   }
+//TODO find out how to loop values and export current view
+//  public void tableView(){
+//    int table = psqlTable.getSelectionModel().getTableView().getItems().size();
+//     System.out.println(table);
+//   }
+
+//   public String returnCol(){
+//     return psqlTable.getSelectionModel().getSelectedItem().getIdCol();
+//   }
 
 //User actions
   @FXML
