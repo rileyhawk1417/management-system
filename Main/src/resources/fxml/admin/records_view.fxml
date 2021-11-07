@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,6 +13,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.controllers.admin.TableCtrl">
@@ -30,10 +33,42 @@
                <opaqueInsets>
                   <Insets top="25.0" />
                </opaqueInsets>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="update_option" mnemonicParsing="false" text="Update Record" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="69.0">
                <children>
-                  <Text layoutX="59.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summary" />
+                  <VBox fx:id="sideBar_1" alignment="CENTER_LEFT" layoutX="5.0" layoutY="5.0" prefHeight="320.0" prefWidth="82.0" spacing="30.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                        <Text layoutX="38.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <Text layoutX="38.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detail" />
+                        <Text layoutX="38.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Units Used" />
+                        <Text layoutX="38.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Units Left" />
+                        <Text layoutX="10.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restock" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="sideBar_2" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="6.0" prefHeight="320.0" prefWidth="82.0" spacing="24.0">
+                     <children>
+                        <TextField fx:id="side_id_entry" />
+                        <TextField fx:id="side_name_entry" layoutX="10.0" layoutY="194.0" />
+                        <TextField fx:id="side_detail_entry" layoutX="10.0" layoutY="205.0" />
+                        <TextField fx:id="side_units_used_entry" layoutX="10.0" layoutY="217.0" />
+                        <TextField fx:id="side_units_left_entry" layoutX="10.0" layoutY="228.0" />
+                        <TextField fx:id="side_restock_entry" layoutX="10.0" layoutY="65.0" />
+                     </children>
+                  </VBox>
+                  <ButtonBar layoutX="-19.0" layoutY="333.0" prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button fx:id="discard_" mnemonicParsing="false" onAction="#discard_changes" text="Cancel" />
+                        <Button fx:id="update_btn" layoutX="125.0" layoutY="19.0" mnemonicParsing="false" onAction="#confirm_update"  text="Update" />
+                    </buttons>
+                  </ButtonBar>
                </children>
             </AnchorPane>
         </items>
@@ -49,7 +84,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem fx:id="add_rec" mnemonicParsing="false" onAction="#add_screen" text="Add Record" />
+                  <MenuItem fx:id="add_rec" mnemonicParsing="false" onAction="#add_screen" text="Add Record" /> 
                   <Menu mnemonicParsing="false" text="Delete">
                   <items>
                   <MenuItem fx:id="delete_by_name" mnemonicParsing="false" onAction="#delete_by_name_btn" text="Delete By Name" />
