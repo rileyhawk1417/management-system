@@ -21,7 +21,7 @@
       <Separator layoutY="30.0" prefWidth="600.0" />
       <SplitPane dividerPositions="0.7047781569965871" layoutX="7.0" layoutY="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
         <items>
-            <TableView fx:id="psqlTable" editable="true" fixedCellSize="20.0" tableMenuButtonVisible="true">
+            <TableView fx:id="mysqlTable" editable="true" fixedCellSize="20.0" tableMenuButtonVisible="true">
               <columns>
                 <TableColumn fx:id="idColmn" prefWidth="55.0" text="ID" />
                 <TableColumn fx:id="itemName" prefWidth="64.0" text="Name" />
@@ -37,6 +37,8 @@
                   <ContextMenu>
                     <items>
                       <MenuItem fx:id="update_option" mnemonicParsing="false" text="Update Record" />
+                      <MenuItem fx:id="export_current_view" mnemonicParsing="false" onAction="#export_tableView" text="Export Current Records" />
+                      <MenuItem fx:id="delete_by_id_context" mnemonicParsing="false" onAction="#delete_by_id_btn" text="Delete Selected Record" />
                     </items>
                   </ContextMenu>
                </contextMenu>
@@ -77,9 +79,10 @@
               <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="exportBtn" mnemonicParsing="false" onAction="#export_rec" text="Export Records" />
+              <MenuItem fx:id="exportBtn" mnemonicParsing="false" onAction="#export_rec" text="Export All Records" />
+              <MenuItem fx:id="export_view" mnemonicParsing="false" onAction="#export_tableView" text="Export Selected Records" />
               <MenuItem fx:id="log_out" mnemonicParsing="false" onAction="#log_out_btn" text="Log out" />
-              <!-- <MenuItem fx:id="close" mnemonicParsing="false" onAction="#export_rec" text="Export Records" /> -->
+              <MenuItem fx:id="close" mnemonicParsing="false" onAction="#exitBtn" text="Exit App" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -91,13 +94,10 @@
                   <MenuItem fx:id="delete_by_id" mnemonicParsing="false" onAction="#delete_by_id_btn" text="Delete Selected Record" />
                 </items>
               </Menu>
+                  <MenuItem fx:id="export_btn" mnemonicParsing="false" onAction="#export_rec" text="Export All Records" />
+                  <MenuItem fx:id="export_view_btn" mnemonicParsing="false" onAction="#export_tableView" text="Export Selected Records" />
             </items>
           </Menu>
-          <!-- <Menu mnemonicParsing="false" text="Options">
-            <items>
-            
-            </items>
-          </Menu> -->
             <Menu mnemonicParsing="false" text="Navigate">
                <items>
                   <MenuItem fx:id="switch_user_" mnemonicParsing="false" onAction="#switch_user" text="Switch to normal user" />
@@ -113,9 +113,6 @@
         </menus>
       </MenuBar> 
       <TextField fx:id="searchBar" layoutX="264.0" layoutY="4.0" />
-      <!-- <Button fx:id="refresh" layoutX="51.0" layoutY="228.0" mnemonicParsing="false" onAction="#reloadBtn" prefHeight="23.0" prefWidth="76.0" text="Reload" />
-      <Button fx:id="exportBtn" layoutX="51.0" layoutY="152.0" mnemonicParsing="false" onAction="#printBtn" prefHeight="23.0" prefWidth="76.0" text="Export" />
-                  <Button fx:id="exit" layoutX="51.0" layoutY="265.0" mnemonicParsing="false" onAction="#exitBtn" prefHeight="23.0" prefWidth="76.0" text="Exit" /> -->
       <Button fx:id="subQuery" layoutX="474.0" layoutY="5.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="23.0" prefWidth="76.0" text="Search" />
    </children>
    <padding>
