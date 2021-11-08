@@ -7,10 +7,6 @@ import com.schoolAdmin.database.Mysql;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -20,7 +16,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-       scene_switcher.login_scene(); 
+        // scene_switcher.rec_scene();
+           scene_switcher.login_scene(); 
     }
 
     public static void main(String[] args) throws SQLException {
