@@ -1,24 +1,15 @@
 package com.schoolAdmin.controllers;
 
 import java.net.URL;
-// import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import com.schoolAdmin.controllers.misc.SceneCtrl;
 import com.schoolAdmin.database.Mysql;
-import com.schoolAdmin.modals.AlertModule;
-// import com.schoolAdmin.controllers.SceneCtrl;
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import com.schoolAdmin.modals.AlertModule;
 
 public class LoginCtrl {
     @FXML

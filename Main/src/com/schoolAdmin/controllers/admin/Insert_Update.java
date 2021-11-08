@@ -62,7 +62,7 @@ public class Insert_Update implements Initializable {
    @FXML
    private void insert_rec(ActionEvent event) {
       Window owner = insert_update.getScene().getWindow();
-      choiceSelector();
+      // choiceSelector();
       grabTxt(owner);
    }
 
@@ -81,7 +81,7 @@ public class Insert_Update implements Initializable {
       try {
          if (name_entry.getText().isEmpty() || units_used_entry.getText().isEmpty()
                || units_left_entry.getText().isEmpty()) {
-            AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error", "Please enter all fields");
+            AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Input Error", "Please enter all fields");
 
          } else {
             mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
@@ -94,17 +94,6 @@ public class Insert_Update implements Initializable {
 
          }
 
-         /*
-          * if (units_used_entry.getText().isEmpty()) {
-          * AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error",
-          * "This field is required");
-          * 
-          * } if (units_left_entry.getText().isEmpty()) {
-          * AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Credential Error",
-          * "This field is required");
-          * 
-          * }
-          */
          // choiceSelector();
 
       } catch (Exception e) {
