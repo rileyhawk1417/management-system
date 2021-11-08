@@ -1,7 +1,5 @@
 package com.schoolAdmin.modals;
 
-import javafx.beans.property.*;
-
 public class TableModel {
 
     public String idCol = new String();
