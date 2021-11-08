@@ -7,13 +7,16 @@ import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 
+/*
+* Similar to a cheat script
+* To avoid repetition in several files
+*/
 public class SceneCtrl {
     // TODO not seeing resources folder
     String login_screen = "/resources/fxml/login_screen.fxml";
     String add_screen = "/resources/fxml/admin/insert_screen.fxml";
     String records_screen = "/resources/fxml/admin/records_view.fxml";
     String greeting_screen = "/resources/fxml/greeting_banner.fxml";
-    String update_screen = "/resources/fxml/admin/update_screen.fxml";
     String bulk_delete_screen = "/resources/fxml/admin/delete_by_name.fxml";
     String about_screen = "/resources/fxml/about.fxml";
 
@@ -61,17 +64,6 @@ public class SceneCtrl {
             Parent root = FXMLLoader.load(getClass().getResource(add_screen));
             Scene add = new Scene(root);
             switchScene(add, true, "Add Record", false);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
-    public void update_scene() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(update_screen));
-            Scene add = new Scene(root);
-            switchScene(add, true, "Update Record", false);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
