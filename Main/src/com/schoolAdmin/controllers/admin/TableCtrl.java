@@ -3,8 +3,6 @@ package com.schoolAdmin.controllers.admin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -20,20 +18,32 @@ import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.modals.TableModel;
 import com.schoolAdmin.database.Mysql;
 import com.schoolAdmin.controllers.misc.SceneCtrl;
-import com.schoolAdmin.controllers.admin.UpdateCtrl;
+// import com.schoolAdmin.controllers.admin.UpdateCtrl;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import java.nio.file.*;
+
+/*
+* This file handles most of the table operations
+* From presenting the data to manipulation
+*/
 
 public class TableCtrl implements Initializable {
   Stage stage = new Stage();
   Mysql mysql = new Mysql();
   SceneCtrl scene_switcher = new SceneCtrl();
-  UpdateCtrl update;
+  // UpdateCtrl update;
   Window owner = stage.getOwner();
 
   /*
   *Table View and Table Column 
   */
   @FXML
-  TableView<TableModel> psqlTable;
+  TableView<TableModel> mysqlTable;
 
   @FXML
   TableColumn<TableModel, String> idColmn;
@@ -129,6 +139,24 @@ public class TableCtrl implements Initializable {
   private MenuItem update_option;
 
   @FXML
+  private MenuItem export_current_view;
+  
+  @FXML
+  private MenuItem delete_by_id_context;
+
+  @FXML
+  private MenuItem export_view;
+
+  @FXML
+  private MenuItem close;
+
+  @FXML
+  private MenuItem export_btn;
+  
+  @FXML
+  private MenuItem export_view_btn;
+
+  @FXML
   private VBox sideBar_1;
 
   @FXML
@@ -141,7 +169,7 @@ public class TableCtrl implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    assert psqlTable != null : "Failed to load databaseTable";
+    assert mysqlTable != null : "Failed to load databaseTable";
 
     idColmn.setCellValueFactory(new PropertyValueFactory<TableModel, String>("idCol"));
     itemName.setCellValueFactory(new PropertyValueFactory<TableModel, String>("item_name"));
@@ -157,7 +185,7 @@ public class TableCtrl implements Initializable {
       e.printStackTrace();
     }
     //Set Records
-    psqlTable.setItems(records);
+    mysqlTable.setItems(records);
   }
 
 
@@ -239,21 +267,18 @@ public class TableCtrl implements Initializable {
       e.printStackTrace();
     }
   }
-   public String id_col; 
+
    
    public void deleteRow(){
-    id_col= psqlTable.getSelectionModel().getSelectedItem().getIdCol();
     ObservableList<TableModel> selectedRow, allRows;
-    allRows = psqlTable.getItems();
-    selectedRow = psqlTable.getSelectionModel().getSelectedItems();
+    allRows = mysqlTable.getItems();
+    selectedRow = mysqlTable.getSelectionModel().getSelectedItems();
 
-    String id_ = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
+    String id_ = mysqlTable.getSelectionModel().getSelectedItem().getIdCol();
     System.out.println(id_);
     mysql.delete_row_by_id(id_);
     selectedRow.forEach(allRows::remove); 
   }
-
-  public void delete_by_name(){}
 
   //File actions
   @FXML
@@ -261,18 +286,25 @@ public class TableCtrl implements Initializable {
     addScreen();
   }
   
-  @FXML
+  /*
+  *Reference methods or reminders
+  * to show that when dealing with private values
+  * they cant be passed to another class
+  //TODO Method 1
+  // update.setField("150", "25", "3", "4", "5");
   
-    //TODO Method 1
-    // update.setField("150", "25", "3", "4", "5");
-
-    //TODO Method 2
-    // UpdateCtrl update = new UpdateCtrl("1", "2", "3", "4", "5");
+  //TODO Method 2
+  // UpdateCtrl update = new UpdateCtrl("1", "2", "3", "4", "5");
+  */
   
+  /*
+  * Method 3 or function table_click_listener
+  * This method listens for a selected record then
+  * displays it on the side panel for update.
+  */
 
-  //TODO Method 3 click listener
   public void table_click_Listener(){
-    psqlTable.getSelectionModel().selectedItemProperty().addListener((obs, old_selection, new_selection) -> { 
+    mysqlTable.getSelectionModel().selectedItemProperty().addListener((obs, old_selection, new_selection) -> { 
       side_id_entry.setText(new_selection.getIdCol());
       side_name_entry.setText(new_selection.getItem_name());
       side_detail_entry.setText(new_selection.getDesc());
@@ -322,9 +354,10 @@ public class TableCtrl implements Initializable {
     try{
       records.removeAll();
       records = searchDB(searchBar.getText(), owner);
-      psqlTable.setItems(records);
+      mysqlTable.setItems(records);
     } catch (Exception e){
       e.printStackTrace();
+      AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Action Error", "Unable to complete search");
     }
   }
 
@@ -334,26 +367,92 @@ public class TableCtrl implements Initializable {
     //Clear current view then load results
     records.removeAll();
     records = loadTable();
-    psqlTable.setItems(records);
+    mysqlTable.setItems(records);
   }
+
+  /**
+   * 
+   * *The methods to export records to excel
+   * *ExportExcel.exportToExcel() exports all records in database.
+   * *export_tableView() exports the current table view of the records.
+   */
   @FXML
   private void export_rec(ActionEvent event) throws IOException{
-    Window owner = psqlTable.getScene().getWindow();
+    Window owner = mysqlTable.getScene().getWindow();
     ExportExcel.exportToExcel(owner);
 
   }
-//TODO find out how to loop values and export current view
-//  public void tableView(){
-//    int table = psqlTable.getSelectionModel().getTableView().getItems().size();
-//     System.out.println(table);
-//   }
 
-//   public String returnCol(){
-//     return psqlTable.getSelectionModel().getSelectedItem().getIdCol();
-//   }
-
-//User actions
   @FXML
+  private void export_tableView(){
+    Workbook wb = new HSSFWorkbook();
+    Sheet spreadsheet = wb.createSheet("Current TableView");
+
+    Row row = spreadsheet.createRow(0);
+
+    for(int i=0; i<mysqlTable.getColumns().size(); i++ ) {
+      row.createCell(i).setCellValue(mysqlTable.getColumns().get(i).getText());
+    }
+
+    for(int x=0; x<mysqlTable.getItems().size(); x++){
+      row = spreadsheet.createRow(x+1);
+      for(int y=0; y<mysqlTable.getColumns().size(); y++){
+        if(mysqlTable.getColumns().get(y).getCellData(x) !=null){
+          row.createCell(y).setCellValue(mysqlTable.getColumns().get(y).getCellData(x).toString());
+        } else{
+          row.createCell(y).setCellValue("");
+        }
+      }
+    }
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Export Excel Document");
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx"),
+                new FileChooser.ExtensionFilter("XLS files (*.xls)", "*.xls"),
+                new FileChooser.ExtensionFilter("ODS files (*.ods)", "*.ods"),
+                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"),
+                new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html")
+                );
+            try{
+                File saveFile = fileChooser.showSaveDialog(owner);
+                String savePath = "Exported TableView.xlsx";
+                FileOutputStream save_file = new FileOutputStream(savePath);
+                fileChooser.setInitialFileName("Exported Table");
+                //TODO Set initial filename not working when saving? 
+               
+                Path src = Paths.get(savePath); 
+                Path dest = Paths.get(saveFile.getAbsolutePath());
+               
+                StandardCopyOption REPLACE_EXISTING = StandardCopyOption.REPLACE_EXISTING;
+                StandardCopyOption COPY_ATTRIBUTES = StandardCopyOption.COPY_ATTRIBUTES;
+                LinkOption NOFOLLOW_LINKS = LinkOption.NOFOLLOW_LINKS;
+
+                if(saveFile !=null){
+                  try{      
+                    //try to save workbook
+                    wb.write(save_file);
+            
+                        //try to copy and delete file
+                        Files.copy(src, dest, REPLACE_EXISTING, COPY_ATTRIBUTES, NOFOLLOW_LINKS);
+                        Files.delete(src);
+                        wb.close();
+                      }
+                        catch(IOException e){
+                          e.getMessage();
+                          e.printStackTrace();
+                        }
+                }
+              } catch(FileNotFoundException e){
+                  e.getMessage();
+                  e.printStackTrace();
+                }
+    
+  }
+  
+/*
+*User actions
+*/
+@FXML
   private void manual_btn(){}
 
   @FXML
@@ -363,13 +462,13 @@ public class TableCtrl implements Initializable {
 
   @FXML
   private void log_out_btn(){
-    psqlTable.getScene().getWindow().hide();
+    mysqlTable.getScene().getWindow().hide();
     scene_switcher.login_scene();
   }
 
   @FXML
   private void switch_user(){
-    psqlTable.getScene().getWindow().hide();
+    mysqlTable.getScene().getWindow().hide();
     scene_switcher.login_scene();
   }
 
