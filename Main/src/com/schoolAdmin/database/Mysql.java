@@ -30,7 +30,7 @@ public class Mysql {
         return false;
     }
 
-    public boolean validate(String user, String pass) throws SQLException {
+    public boolean validateAdmin(String user, String pass) throws SQLException {
 
         String QUERY = "SELECT * FROM user_login WHERE name = ? AND password = ? ";
 
@@ -51,6 +51,29 @@ public class Mysql {
         }
         return false;
     }
+    
+    public boolean validateCashier(String user, String pass) throws SQLException {
+
+        String QUERY = "SELECT * FROM employee_login WHERE name = ? AND password = ? ";
+
+        try (Connection conn = connector();
+
+                PreparedStatement pstmt = conn.prepareStatement(QUERY);) {
+            pstmt.setString(1, user);
+            pstmt.setString(2, pass);
+
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+            // TODO: handle exception
+        }
+        return false;
+    }
+
 
     public void searchDB(String query) {
         String search = "select * from ace_hardware WHERE name LIKE '" + query + "%'";
@@ -75,8 +98,8 @@ public class Mysql {
         }
     }
 
-    public void insertValues(String name, String detail, String units_used, String units_left, String restock) {
-        String values = "INSERT INTO ace_hardware (name, detail, units_used, units_left, restock) VALUES (?, ?, ?, ?, ?)";
+    public void insertValues(String name, String detail, String units_used, String units_left, String unit_price, String restock) {
+        String values = "INSERT INTO ace_hardware (name, detail, units_used, units_left, unit_price, restock) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = connector();
@@ -85,7 +108,8 @@ public class Mysql {
             pstmt.setString(2, detail);
             pstmt.setString(3, units_used);
             pstmt.setString(4, units_left);
-            pstmt.setString(5, restock);
+            pstmt.setString(5, unit_price);
+            pstmt.setString(6, restock);
 
             pstmt.execute();
 
@@ -96,8 +120,8 @@ public class Mysql {
 
     }
 
-    public void updateValues( String name, String detail, String units_used, String units_left, String restock, String id){
-        String update = "UPDATE ace_hardware SET name= ?, detail = ?, units_used = ?, units_left = ?, restock = ? WHERE id=?";
+    public void updateValues( String name, String detail, String units_used, String units_left, String unit_price, String restock, String id){
+        String update = "UPDATE ace_hardware SET name=?, detail=?, units_used=?, units_left=?, unit_price=?, restock=? WHERE id=?";
         try{
             Connection conn = connector();
             PreparedStatement pstmt = conn.prepareStatement(update);
@@ -105,8 +129,9 @@ public class Mysql {
             pstmt.setString(2, detail);
             pstmt.setString(3, units_used);
             pstmt.setString(4, units_left);
-            pstmt.setString(5, restock);
-            pstmt.setString(6, id);
+            pstmt.setString(5, unit_price);
+            pstmt.setString(6, restock);
+            pstmt.setString(7, id);
 
             pstmt.execute();
         } catch(SQLException e){
