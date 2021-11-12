@@ -44,6 +44,9 @@ public class Insert_Update implements Initializable {
    private TextField units_left_entry;
 
    @FXML
+   private TextField unit_price_entry;
+
+   @FXML
    private ChoiceBox<String> choice;
 
    String options[] = { "True", "False" };
@@ -85,7 +88,7 @@ public class Insert_Update implements Initializable {
 
          } else {
             mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
-                  units_left_entry.getText(), checkBox);
+                  units_left_entry.getText(), unit_price_entry.getText(), checkBox);
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry
             // TODO Reload is done manually after window closes

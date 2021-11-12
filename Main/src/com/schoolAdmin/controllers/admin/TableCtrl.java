@@ -59,6 +59,10 @@ public class TableCtrl implements Initializable {
 
   @FXML
   TableColumn<TableModel, String> unitsLeft;
+  
+  @FXML
+  TableColumn<TableModel, String> unitPrice;
+
 
   @FXML
   TableColumn<TableModel, String> restock;
@@ -83,6 +87,10 @@ public class TableCtrl implements Initializable {
 
   @FXML
   private TextField side_units_left_entry;
+  
+  @FXML
+  private TextField side_unit_price_entry;
+
 
   @FXML
   private TextField side_restock_entry;
@@ -176,6 +184,7 @@ public class TableCtrl implements Initializable {
     description.setCellValueFactory(new PropertyValueFactory<TableModel, String>("desc"));
     unitsConsumed.setCellValueFactory(new PropertyValueFactory<TableModel, String>("units_used"));
     unitsLeft.setCellValueFactory(new PropertyValueFactory<TableModel, String>("units_left"));
+    unitPrice.setCellValueFactory(new PropertyValueFactory<TableModel, String>("unit_price"));
     restock.setCellValueFactory(new PropertyValueFactory<TableModel, String>("restock"));
 
     try {
@@ -206,6 +215,7 @@ public class TableCtrl implements Initializable {
           res.getString("detail"),
           res.getString("units_used"),
           res.getString("units_left"),
+          res.getString("unit_price"),
           res.getString("restock")));
         }
         System.out.println(loadList.size());
@@ -236,6 +246,7 @@ public class TableCtrl implements Initializable {
                                 res.getString("detail"),
                                 res.getString("units_used"),
                                 res.getString("units_left"),
+                                res.getString("unit_price"),
                                 res.getString("restock")));
                 }
                // Error still triggered even if results are found
@@ -309,7 +320,8 @@ public class TableCtrl implements Initializable {
       side_name_entry.setText(new_selection.getItem_name());
       side_detail_entry.setText(new_selection.getDesc());
       side_units_used_entry.setText(new_selection.getUnits_used());
-      side_units_left_entry.setText(new_selection.getUnits_left()); 
+      side_units_left_entry.setText(new_selection.getUnits_left());
+      side_unit_price_entry.setText(new_selection.getUnit_price()); 
     });
   }
 
@@ -317,7 +329,7 @@ public class TableCtrl implements Initializable {
   @FXML
   private void confirm_update(){
     try{
-      mysql.updateValues(side_name_entry.getText(), side_detail_entry.getText(), side_units_used_entry.getText(), side_units_left_entry.getText(), "", side_id_entry.getText());
+      mysql.updateValues(side_name_entry.getText(), side_detail_entry.getText(), side_units_used_entry.getText(), side_units_left_entry.getText(), side_unit_price_entry.getText(), side_restock_entry.getText(), side_id_entry.getText());
       AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Action Completed", "Record updated successfully");
       reloadBtn();
     } catch(Exception e){
@@ -334,6 +346,7 @@ public class TableCtrl implements Initializable {
         side_detail_entry.clear();
         side_units_used_entry.clear();
         side_units_left_entry.clear();
+        side_unit_price_entry.clear();
 
   }
 
@@ -461,15 +474,9 @@ public class TableCtrl implements Initializable {
   }
 
   @FXML
-  private void log_out_btn(){
-    mysqlTable.getScene().getWindow().hide();
-    scene_switcher.login_scene();
-  }
-
-  @FXML
   private void switch_user(){
     mysqlTable.getScene().getWindow().hide();
-    scene_switcher.login_scene();
+    scene_switcher.decision_scene();
   }
 
   @FXML
