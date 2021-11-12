@@ -28,6 +28,7 @@
                   <TableColumn fx:id="description" prefWidth="69.0" text="Detail" />
                   <TableColumn fx:id="unitsConsumed" prefWidth="73.0" text="Units Used" />
                   <TableColumn fx:id="unitsLeft" prefWidth="73.0" text="Units Left" />
+                  <TableColumn fx:id="unitPrice" prefWidth="73.0" text="Unit Price" />
                   <TableColumn fx:id="restock" prefWidth="73.0" text="Restock" />
               </columns>
                <opaqueInsets>
@@ -53,6 +54,7 @@
                         <Text layoutX="38.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Units Used" />
                         <Text layoutX="38.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Units Left" />
                         <Text layoutX="10.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restock" />
+                        <Text layoutX="38.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price" />
                      </children>
                   </VBox>
                   <VBox fx:id="sideBar_2" alignment="CENTER_RIGHT" layoutX="81.0" layoutY="6.0" prefHeight="320.0" prefWidth="82.0" spacing="24.0">
@@ -62,6 +64,7 @@
                         <TextField fx:id="side_detail_entry" layoutX="10.0" layoutY="205.0" />
                         <TextField fx:id="side_units_used_entry" layoutX="10.0" layoutY="217.0" />
                         <TextField fx:id="side_units_left_entry" layoutX="10.0" layoutY="228.0" />
+                        <TextField fx:id="side_unit_price_entry" layoutX="10.0" layoutY="228.0" />
                         <TextField fx:id="side_restock_entry" layoutX="10.0" layoutY="65.0" />
                      </children>
                   </VBox>
@@ -81,7 +84,7 @@
             <items>
               <MenuItem fx:id="exportBtn" mnemonicParsing="false" onAction="#export_rec" text="Export All Records" />
               <MenuItem fx:id="export_view" mnemonicParsing="false" onAction="#export_tableView" text="Export Selected Records" />
-              <MenuItem fx:id="log_out" mnemonicParsing="false" onAction="#log_out_btn" text="Log out" />
+              <MenuItem fx:id="log_out" mnemonicParsing="false" onAction="#switch_user" text="Log out" />
               <MenuItem fx:id="close" mnemonicParsing="false" onAction="#exitBtn" text="Exit App" />
             </items>
           </Menu>

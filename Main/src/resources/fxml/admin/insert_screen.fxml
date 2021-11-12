@@ -18,6 +18,7 @@
             <Label layoutX="10.0" layoutY="40.0" text="Detail" />
             <Label layoutX="10.0" layoutY="85.0" text="Units Used" />
             <Label layoutX="10.0" layoutY="130.0" text="Units Left" />
+            <Label layoutX="10.0" layoutY="130.0" text="Unit Price" />
             <Label layoutX="10.0" layoutY="175.0" text="Restock" />
          </children>
          <padding>
@@ -30,6 +31,7 @@
             <TextField fx:id="detail_entry" layoutX="10.0" layoutY="40.0" />
             <TextField fx:id="units_used_entry" />
             <TextField fx:id="units_left_entry" layoutX="10.0" layoutY="126.0" />
+            <TextField fx:id="unit_price_entry" layoutX="10.0" layoutY="126.0" />
             <ChoiceBox fx:id="choice" prefWidth="150.0" />
          </children>
          <padding>
