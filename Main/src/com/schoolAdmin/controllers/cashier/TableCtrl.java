@@ -16,7 +16,7 @@ import java.net.URL;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
+import javafx.scene.layout.AnchorPane;
 
 import com.schoolAdmin.app.App;
 import com.schoolAdmin.modals.AlertModule;
@@ -30,7 +30,10 @@ public class TableCtrl implements Initializable {
   SceneCtrl scene_switcher = new SceneCtrl();
 
   @FXML
-  TableView<TableModel> psqlTable;
+  private AnchorPane parent_;
+
+  @FXML
+  TableView<TableModel> mysqlTable;
 
   @FXML
   TableColumn<TableModel, String> idColmn;
@@ -46,6 +49,9 @@ public class TableCtrl implements Initializable {
 
   @FXML
   TableColumn<TableModel, String> unitsLeft;
+  
+  @FXML
+  TableColumn<TableModel, String> unitPrice;
 
   @FXML
   TableColumn<TableModel, String> restock;
@@ -62,14 +68,17 @@ public class TableCtrl implements Initializable {
   @FXML
   private MenuItem exit;
 
-  @FXML
-  private MenuItem add_rec;
+  // @FXML
+  // private MenuItem add_rec;
   
   @FXML
-  private MenuItem delete_by_name;
+  private MenuItem delete_by_id;
 
   @FXML
   private MenuItem log_out;
+
+  @FXML
+  private MenuItem close;
 
   @FXML
   private MenuItem manual_;
@@ -87,13 +96,14 @@ public class TableCtrl implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    assert psqlTable != null : "Failed to load databaseTable";
+    assert mysqlTable != null : "Failed to load databaseTable";
 
     idColmn.setCellValueFactory(new PropertyValueFactory<TableModel, String>("idCol"));
     itemName.setCellValueFactory(new PropertyValueFactory<TableModel, String>("item_name"));
     description.setCellValueFactory(new PropertyValueFactory<TableModel, String>("desc"));
     unitsConsumed.setCellValueFactory(new PropertyValueFactory<TableModel, String>("units_used"));
     unitsLeft.setCellValueFactory(new PropertyValueFactory<TableModel, String>("units_left"));
+    unitPrice.setCellValueFactory(new PropertyValueFactory<TableModel, String>("unit_price"));
     restock.setCellValueFactory(new PropertyValueFactory<TableModel, String>("restock"));
 
     try {
@@ -102,7 +112,7 @@ public class TableCtrl implements Initializable {
       e.printStackTrace();
     }
     //Set Records
-    psqlTable.setItems(records);
+    mysqlTable.setItems(records);
   }
 
 
@@ -123,6 +133,7 @@ public class TableCtrl implements Initializable {
           res.getString("detail"),
           res.getString("units_used"),
           res.getString("units_left"),
+          res.getString("unit_price"),
           res.getString("restock")));
         }
         System.out.println(loadList.size());
@@ -153,6 +164,7 @@ public class TableCtrl implements Initializable {
                                 res.getString("detail"),
                                 res.getString("units_used"),
                                 res.getString("units_left"),
+                                res.getString("unit_price"),
                                 res.getString("restock")));
                 }
                // Error still triggered even if results are found
@@ -174,43 +186,21 @@ public class TableCtrl implements Initializable {
     }
 
 
-  public void addScreen(){
-    try {
-      scene_switcher.add_scene();
-      loadTable();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      System.out.println(e.getMessage());
-      e.printStackTrace();
-    }
-  }
-   public String id_col = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
-
   public void deleteRow(){
     ObservableList<TableModel> selectedRow, allRows;
-    allRows = psqlTable.getItems();
-    selectedRow = psqlTable.getSelectionModel().getSelectedItems();
+    allRows = mysqlTable.getItems();
+    selectedRow = mysqlTable.getSelectionModel().getSelectedItems();
 
-    String id_ = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
-    System.out.println(id_);
-    mysql.delete_row_by_id(id_);
+    // String id_ = psqlTable.getSelectionModel().getSelectedItem().getIdCol();
+    // System.out.println(id_);
+    // mysql.delete_row_by_id(id_);
     selectedRow.forEach(allRows::remove);
   }
 
   //File actions
   @FXML
-  private void add_screen(){
-    addScreen();
-  }
-
-  @FXML
-  private void delete_btn(){
+  private void delete_by_id_btn(){
     deleteRow();
-  }
-  
-  @FXML
-  private void delete_by_name_btn(){
-
   }
 
   @FXML
@@ -220,7 +210,7 @@ public class TableCtrl implements Initializable {
     try{
       records.removeAll();
       records = searchDB(searchBar.getText(), owner);
-      psqlTable.setItems(records);
+      mysqlTable.setItems(records);
     } catch (Exception e){
       e.printStackTrace();
     }
@@ -232,20 +222,23 @@ public class TableCtrl implements Initializable {
     //Clear current view then load results
     records.removeAll();
     records = loadTable();
-    psqlTable.setItems(records);
+    mysqlTable.setItems(records);
   }
 //User actions
   @FXML
   private void manual_btn(){}
 
   @FXML
-  private void about_btn(){}
+  private void about_btn(){
+    parent_.getScene().getWindow().hide();
+   scene_switcher.about_scene(); 
+  }
 
   @FXML
-  private void log_out_btn(){}
-
-  @FXML
-  private void switch_user(){}
+  private void switch_user(){
+    parent_.getScene().getWindow().hide();
+    scene_switcher.decision_scene();
+  }
 
   @FXML
   private void exitBtn(ActionEvent event){
