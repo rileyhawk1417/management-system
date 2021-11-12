@@ -13,12 +13,15 @@ import javafx.fxml.FXMLLoader;
 */
 public class SceneCtrl {
     // TODO not seeing resources folder
-    String login_screen = "/resources/fxml/login_screen.fxml";
+    String admin_login = "/resources/fxml/admin/login_screen.fxml";
+    String cashier_login = "/resources/fxml/cashier/login_screen.fxml";
+    String decision_screen = "/resources/fxml/misc/login_choice.fxml";
     String add_screen = "/resources/fxml/admin/insert_screen.fxml";
-    String records_screen = "/resources/fxml/admin/records_view.fxml";
+    String admin_records = "/resources/fxml/admin/records_view.fxml";
+    String cashier_records = "/resources/fxml/cashier/records_view.fxml";
     String greeting_screen = "/resources/fxml/greeting_banner.fxml";
     String bulk_delete_screen = "/resources/fxml/admin/delete_by_name.fxml";
-    String about_screen = "/resources/fxml/about.fxml";
+    String about_screen = "/resources/fxml/misc/about.fxml";
 
     public static void switchScene(Scene scene, boolean truth, String title, boolean option) {
         Stage stage = new Stage();
@@ -36,21 +39,44 @@ public class SceneCtrl {
         // stage.show();
 
     }
-
-    public void login_scene() {
+    public void decision_scene() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(login_screen));
+            Parent root = FXMLLoader.load(getClass().getResource(decision_screen));
             Scene login = new Scene(root);
-            switchScene(login, true, "Login Screen", false);
+            switchScene(login, true, "Select Login Type", false);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public void rec_scene() {
+
+    public void admin_login_scene() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(records_screen));
+            Parent root = FXMLLoader.load(getClass().getResource(admin_login));
+            Scene login = new Scene(root);
+            switchScene(login, true, "Admin Login", false);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    public void cashier_login_scene() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(cashier_login));
+            Scene login = new Scene(root);
+            switchScene(login, true, "Employee Login", false);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+    public void admin_rec_scene() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(admin_records));
             Scene records = new Scene(root);
             switchScene(records, true, "View Inventory ", true);
         } catch (IOException e) {
@@ -58,6 +84,18 @@ public class SceneCtrl {
             e.printStackTrace();
         }
     }
+    
+    public void cashier_rec_scene() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(cashier_records));
+            Scene records = new Scene(root);
+            switchScene(records, true, "View Inventory ", true);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     public void add_scene() {
         try {
