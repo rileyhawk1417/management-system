@@ -7,6 +7,7 @@ public class TableModel {
     public String desc = new String();
     public String units_used = new String();
     public String units_left = new String();
+    public String unit_price = new String();
     public String restock = new String();
 
 
@@ -50,6 +51,14 @@ public class TableModel {
         this.units_left = units_left;
     }
 
+    public String getUnit_price(){
+        return this.unit_price;
+    }
+
+    public void setUnit_price(String unit_price){
+        this.unit_price = unit_price;
+    }
+
     public String getRestock() {
         return this.restock;
     }
@@ -58,13 +67,13 @@ public class TableModel {
         this.restock = restock;
     }
 
-    public TableModel(String idCol, String item_name, String desc, String units_used, String units_left, String restock) {
+    public TableModel(String idCol, String item_name, String desc, String units_used, String units_left, String restock, String unit_price) {
         this.idCol = idCol;
         this.item_name = item_name;
         this.desc = desc;
         this.units_used = units_used;
         this.units_left = units_left;
+        this.unit_price = unit_price;
         this.restock = restock;
-
     }
 }
