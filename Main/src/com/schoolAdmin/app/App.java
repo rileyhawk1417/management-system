@@ -17,7 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // scene_switcher.rec_scene();
-           scene_switcher.login_scene(); 
+           scene_switcher.decision_scene(); 
     }
 
     public static void main(String[] args) throws SQLException {
