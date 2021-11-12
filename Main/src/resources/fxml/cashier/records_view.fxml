@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="parent_" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.schoolAdmin.controllers.cashier.TableCtrl">
+   <children>
+      <Separator layoutY="30.0" prefWidth="600.0" />
+      <SplitPane layoutX="7.0" layoutY="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+        <items>
+            <TableView fx:id="mysqlTable" editable="true" fixedCellSize="20.0" tableMenuButtonVisible="true">
+              <columns>
+                <TableColumn fx:id="idColmn" prefWidth="55.0" text="ID" />
+                <TableColumn fx:id="itemName" prefWidth="64.0" text="Name" />
+                  <TableColumn fx:id="description" prefWidth="69.0" text="Detail" />
+                  <TableColumn fx:id="unitsConsumed" prefWidth="73.0" text="Units Used" />
+                  <TableColumn fx:id="unitsLeft" prefWidth="73.0" text="Units Left" />
+                  <TableColumn fx:id="unitPrice" prefWidth="73.0" text="Restock" />
+                  <TableColumn fx:id="restock" prefWidth="73.0" text="Unit Price" />
+              </columns>
+               <opaqueInsets>
+                  <Insets top="25.0" />
+               </opaqueInsets>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="delete_by_id_context" mnemonicParsing="false" onAction="#delete_by_id_btn" text="Delete Selected Record" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+        </items>
+      </SplitPane>
+      <MenuBar layoutX="2.0" layoutY="4.0">
+              <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="log_out" mnemonicParsing="false" onAction="#switch_user" text="Log out" />
+              <MenuItem fx:id="close" mnemonicParsing="false" onAction="#exitBtn" text="Exit App" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+                  <!-- <MenuItem fx:id="add_rec" mnemonicParsing="false" onAction="#add_screen" text="Add Record" /> -->
+            <MenuItem fx:id="delete_by_id" mnemonicParsing="false" onAction="#delete_by_id_btn" text="Delete Selected Record" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Navigate">
+               <items>
+                  <MenuItem fx:id="switch_user_" mnemonicParsing="false" onAction="#switch_user" text="Switch to Admin user" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitBtn" text="Exit App" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="manual_" mnemonicParsing="false" onAction="#manual_btn" text="Manual" />
+              <MenuItem fx:id="about_" mnemonicParsing="false" onAction="#about_btn" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar> 
+      <TextField fx:id="searchBar" layoutX="264.0" layoutY="4.0" />
+      <Button fx:id="subQuery" layoutX="474.0" layoutY="5.0" mnemonicParsing="false" onAction="#searchBtn" prefHeight="23.0" prefWidth="76.0" text="Search" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>
