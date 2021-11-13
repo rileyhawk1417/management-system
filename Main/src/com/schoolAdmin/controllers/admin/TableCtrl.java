@@ -38,6 +38,7 @@ public class TableCtrl implements Initializable {
   SceneCtrl scene_switcher = new SceneCtrl();
   // UpdateCtrl update;
   Window owner = stage.getOwner();
+  App app = new App();
 
   /*
   *Table View and Table Column 
@@ -474,7 +475,14 @@ public class TableCtrl implements Initializable {
 *User actions
 */
 @FXML
-  private void manual_btn(){}
+  private void manual_btn(){
+    try {
+      app.manual_pdf();
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
   @FXML
   private void about_btn(){

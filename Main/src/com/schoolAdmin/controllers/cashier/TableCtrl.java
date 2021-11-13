@@ -28,6 +28,7 @@ public class TableCtrl implements Initializable {
   Stage stage = new Stage();
   Sqlite sqlite = new Sqlite();
   SceneCtrl scene_switcher = new SceneCtrl();
+  App app = new App();
 
   @FXML
   private AnchorPane parent_;
@@ -226,7 +227,13 @@ public class TableCtrl implements Initializable {
   }
 //User actions
   @FXML
-  private void manual_btn(){}
+  private void manual_btn(){
+    try{
+      app.manual_pdf();
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+  }
 
   @FXML
   private void about_btn(){
