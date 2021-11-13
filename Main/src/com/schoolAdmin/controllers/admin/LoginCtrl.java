@@ -3,7 +3,7 @@ package com.schoolAdmin.controllers.admin;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.schoolAdmin.controllers.misc.SceneCtrl;
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -26,7 +26,7 @@ public class LoginCtrl {
     @FXML
     private Button subBtn;
 
-    Mysql database = new Mysql();
+    Sqlite database = new Sqlite();
     Stage stage = new Stage();
     SceneCtrl scene_switcher = new SceneCtrl();
     // * This is just a reminder for when dealing with events

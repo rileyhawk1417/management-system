@@ -21,12 +21,12 @@ import javafx.scene.layout.AnchorPane;
 import com.schoolAdmin.app.App;
 import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.modals.TableModel;
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 import com.schoolAdmin.controllers.misc.SceneCtrl;
 
 public class TableCtrl implements Initializable {
   Stage stage = new Stage();
-  Mysql mysql = new Mysql();
+  Sqlite sqlite = new Sqlite();
   SceneCtrl scene_switcher = new SceneCtrl();
 
   @FXML
@@ -121,7 +121,7 @@ public class TableCtrl implements Initializable {
     ObservableList<TableModel> loadList = FXCollections.observableArrayList();
 
     try {
-      Connection con = Mysql.connector();
+      Connection con = Sqlite.connector();
 
       ResultSet res = con.createStatement().executeQuery("SELECT * FROM ace_hardware");
 
@@ -151,7 +151,7 @@ public class TableCtrl implements Initializable {
   public static ObservableList<TableModel> searchDB(String query, Window owner) {
     ObservableList<TableModel> queryList = FXCollections.observableArrayList();
         String search = "select * from ace_hardware WHERE name LIKE '"+query+"%'";
-        try (Connection conn = Mysql.connector();
+        try (Connection conn = Sqlite.connector();
 
             PreparedStatement pstmt = conn.prepareStatement(search);) {
             ResultSet res = pstmt.executeQuery();

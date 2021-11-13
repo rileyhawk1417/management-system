@@ -3,7 +3,7 @@ package com.schoolAdmin.app;
 import java.sql.SQLException;
 
 import com.schoolAdmin.controllers.misc.SceneCtrl;
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    Mysql database = new Mysql();
+    Sqlite database = new Sqlite();
     SceneCtrl scene_switcher = new SceneCtrl();
 
     @Override
@@ -21,7 +21,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        Mysql.main(args);
+        Sqlite.main(args);
         launch();
     }
 

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 import com.schoolAdmin.app.App;
 import com.schoolAdmin.modals.AlertModule;
 import com.schoolAdmin.modals.TableModel;
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 import com.schoolAdmin.controllers.misc.SceneCtrl;
 // import com.schoolAdmin.controllers.admin.UpdateCtrl;
 import javafx.stage.FileChooser;
@@ -34,7 +34,7 @@ import java.nio.file.*;
 
 public class TableCtrl implements Initializable {
   Stage stage = new Stage();
-  Mysql mysql = new Mysql();
+  Sqlite sqlite = new Sqlite();
   SceneCtrl scene_switcher = new SceneCtrl();
   // UpdateCtrl update;
   Window owner = stage.getOwner();
@@ -165,6 +165,9 @@ public class TableCtrl implements Initializable {
   private MenuItem export_view_btn;
 
   @FXML
+  private MenuItem reload_;
+
+  @FXML
   private VBox sideBar_1;
 
   @FXML
@@ -203,7 +206,7 @@ public class TableCtrl implements Initializable {
     ObservableList<TableModel> loadList = FXCollections.observableArrayList();
 
     try {
-      Connection con = Mysql.connector();
+      Connection con = Sqlite.connector();
 
       ResultSet res = con.createStatement().executeQuery("SELECT * FROM ace_hardware");
 
@@ -233,7 +236,7 @@ public class TableCtrl implements Initializable {
   public static ObservableList<TableModel> searchDB(String query, Window owner) {
     ObservableList<TableModel> queryList = FXCollections.observableArrayList();
         String search = "select * from ace_hardware WHERE name LIKE '"+query+"%'";
-        try (Connection conn = Mysql.connector();
+        try (Connection conn = Sqlite.connector();
 
             PreparedStatement pstmt = conn.prepareStatement(search);) {
             ResultSet res = pstmt.executeQuery();
@@ -287,7 +290,7 @@ public class TableCtrl implements Initializable {
 
     String id_ = mysqlTable.getSelectionModel().getSelectedItem().getIdCol();
     System.out.println(id_);
-    mysql.delete_row_by_id(id_);
+    sqlite.delete_row_by_id(id_);
     selectedRow.forEach(allRows::remove); 
   }
 
@@ -329,7 +332,7 @@ public class TableCtrl implements Initializable {
   @FXML
   private void confirm_update(){
     try{
-      mysql.updateValues(side_name_entry.getText(), side_detail_entry.getText(), side_units_used_entry.getText(), side_units_left_entry.getText(), side_unit_price_entry.getText(), side_restock_entry.getText(), side_id_entry.getText());
+      sqlite.updateValues(side_name_entry.getText(), side_detail_entry.getText(), side_units_used_entry.getText(), side_units_left_entry.getText(), side_unit_price_entry.getText(), side_restock_entry.getText(), side_id_entry.getText());
       AlertModule.showAlert(Alert.AlertType.CONFIRMATION, owner, "Action Completed", "Record updated successfully");
       reloadBtn();
     } catch(Exception e){
@@ -381,6 +384,11 @@ public class TableCtrl implements Initializable {
     records.removeAll();
     records = loadTable();
     mysqlTable.setItems(records);
+  }
+
+  @FXML
+  private void reload(){
+    reloadBtn();
   }
 
   /**

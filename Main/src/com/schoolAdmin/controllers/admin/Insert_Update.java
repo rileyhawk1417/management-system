@@ -3,7 +3,7 @@ package com.schoolAdmin.controllers.admin;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 import com.schoolAdmin.modals.AlertModule;
 
 import javafx.beans.value.ChangeListener;
@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 public class Insert_Update implements Initializable {
-   Mysql mysql = new Mysql();
+   Sqlite sqlite = new Sqlite();
 
    @FXML
    private Button cancel_insert;
@@ -87,7 +87,7 @@ public class Insert_Update implements Initializable {
             AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Input Error", "Please enter all fields");
 
          } else {
-            mysql.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
+            sqlite.insertValues(name_entry.getText(), detail_entry.getText(), units_used_entry.getText(),
                   units_left_entry.getText(), unit_price_entry.getText(), checkBox);
             AlertModule.showAlert(Alert.AlertType.INFORMATION, owner, "Record Added", "Record added successfully");
             // TODO cannot auto reload results after entry

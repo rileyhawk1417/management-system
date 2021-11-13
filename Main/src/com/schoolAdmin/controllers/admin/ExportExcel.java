@@ -6,7 +6,7 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.*;
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 
 /*
 *This file handles the export from database to excel
@@ -21,7 +21,7 @@ public class ExportExcel {
 
         String query = "SELECT * FROM ace_hardware";
 
-        Connection conn = Mysql.connector();
+        Connection conn = Sqlite.connector();
         ResultSet res = conn.createStatement().executeQuery(query);
         
         XSSFWorkbook wb = new XSSFWorkbook();  
@@ -112,7 +112,7 @@ catch (IOException ex){
 
         String query = "SELECT * FROM ace_hardware";
 
-        Connection conn = Mysql.connector();
+        Connection conn = Sqlite.connector();
         ResultSet res = conn.createStatement().executeQuery(query);
         
         XSSFWorkbook wb = new XSSFWorkbook();  

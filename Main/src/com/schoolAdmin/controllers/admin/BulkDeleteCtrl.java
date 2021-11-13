@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
-import com.schoolAdmin.database.Mysql;
+import com.schoolAdmin.database.Sqlite;
 import com.schoolAdmin.modals.AlertModule;
 
 public class BulkDeleteCtrl {
-    Mysql mysql = new Mysql();
+    Sqlite sqlite = new Sqlite();
     
     @FXML
     private Button cancel_;
@@ -55,7 +55,7 @@ public class BulkDeleteCtrl {
             AlertModule.showAlert(Alert.AlertType.ERROR, owner, "Empty Fields", "No empty fields allowed!");
             return false;
         } else {
-            mysql.delete_row_by_name(search_.getText());
+            sqlite.delete_row_by_name(search_.getText());
             return true;
         }
     }
