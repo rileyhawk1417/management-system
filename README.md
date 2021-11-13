@@ -28,3 +28,8 @@ Not everything might work since this is a testing branch, at least some things w
 - [ ] If user has been found take user to another screen.
   - [ ] Create second stage to display data.
   - [ ] Create another stage to edit data.
+## Notes/Warnings
+- The sqlite database in the folder com/schoolAdmin/database/sqlite.
+- Is for demonstration purposes and does not represent any real world information.
+- Sqlite does not use the file when packaged in jar format. It instead copies it and works outside the jar file
+
