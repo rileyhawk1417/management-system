@@ -91,6 +91,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem fx:id="add_rec" mnemonicParsing="false" onAction="#add_screen" text="Add Record" /> 
+                  <MenuItem fx:id="reload_" mnemonicParsing="false" onAction="#reload" text="Reload Records" /> 
                   <Menu mnemonicParsing="false" text="Delete">
                   <items>
                   <MenuItem fx:id="delete_by_name" mnemonicParsing="false" onAction="#delete_by_name_btn" text="Delete By Name" />
