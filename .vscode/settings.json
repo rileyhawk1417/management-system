@@ -1,0 +1,24 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Main/lib/commons-collections4-4.1.jar",
+        "Main/lib/commons-compress-1.21.jar",
+        "Main/lib/commons-math3-3.0.jar",
+        "Main/lib/jPDFViewerFX.jar",
+        "Main/lib/log4j-1.2-api-2.14.1.jar",
+        "Main/lib/log4j-api-2.14.1.jar",
+        "Main/lib/log4j-core-2.14.1.jar",
+        "Main/lib/poi-5.0.0.jar",
+        "Main/lib/poi-ooxml-5.0.0.jar",
+        "Main/lib/sqlite-jdbc-3.36.0.3.jar",
+        "Main/lib/xmlbeans-5.0.1.jar",
+        "Main/lib/jfx/javafx.base.jar",
+        "Main/lib/jfx/javafx.controls.jar",
+        "Main/lib/jfx/javafx.fxml.jar",
+        "Main/lib/jfx/javafx.graphics.jar",
+        "Main/lib/jfx/javafx.media.jar",
+        "Main/lib/jfx/javafx.swing.jar",
+        "Main/lib/jfx/javafx.web.jar",
+        "Main/lib/jfx/javafx-swt.jar"
+    ]
+}
